@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
       </ThemeProvider>
     </App.Provider>
   );
-};
+}
 
 const GlobalStyle = createGlobalStyle`
     body {
