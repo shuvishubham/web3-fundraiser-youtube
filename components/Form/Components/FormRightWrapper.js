@@ -1,17 +1,21 @@
 import styled from 'styled-components';
+import { FormState } from '../Form';
+import { useContext } from 'react';
 
 const FormRightWrapper = () => {
+  const Handler = useContext(FormState);
+
   return (
     <FormRight>
       <FormInput>
         <FormRow>
           <RowFirstInput>
             <label>Required Amount</label>
-            <Input type={'number'} placeholder='Required Amount'></Input>
+            <Input onChange={Handler.FormHandler} value={Handler.form.requiredAmount} name="requiredAmount" type={'number'} placeholder='Required Amount'></Input>
           </RowFirstInput>
           <RowSecondInput>
             <label>Choose Category</label>
-            <Select>
+            <Select onChange={Handler.FormHandler} value={Handler.form.category} name="category">
               <option>Education</option>
               <option>Health</option>
               <option>Animal</option>
@@ -22,7 +26,7 @@ const FormRightWrapper = () => {
       {/* Image */}
       <FormInput>
         <label>Select Image</label>
-        <Image type={'file'} accept='image/*'>
+        <Image onChange={Handler.ImageHandler} type={'file'} accept='image/*'>
         </Image>
       </FormInput>
       <Button>

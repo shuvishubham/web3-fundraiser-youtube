@@ -1,16 +1,20 @@
 import styled from 'styled-components';
+import { FormState } from '../Form';
+import { useContext } from 'react';
 
 const FormLeftWrapper = () => {
+  const Handler = useContext(FormState);
+
   return (
     <FormLeft>
       <FormInput>
         <label>Campaign Title</label>
-        <Input placeholder='Campaign Title'>
+        <Input onChange={Handler.FormHandler} value={Handler.form.campaignTitle} placeholder='Campaign Title' name='campaignTitle'>
         </Input>
       </FormInput>
       <FormInput>
         <label>Story</label>
-        <TextArea placeholder='Describe Your Story'>
+        <TextArea onChange={Handler.FormHandler} value={Handler.form.story} name="story" placeholder='Describe Your Story'>
         </TextArea>
       </FormInput>
     </FormLeft>
@@ -51,6 +55,7 @@ const TextArea = styled.textarea`
   max-width:100%;
   min-width:100%;
   overflow-x:hidden;
+  min-height:160px ;
 `
 
 export default FormLeftWrapper;
