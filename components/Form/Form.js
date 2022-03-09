@@ -13,6 +13,9 @@ const Form = () => {
         category: "education",
     });
 
+    const [storyUrl, setStoryUrl] = useState();
+    const [imageUrl, setImageUrl] = useState();
+
     const FormHandler = (e) => {
         setForm({
             ...form,
@@ -27,7 +30,7 @@ const Form = () => {
     }
 
   return (
-      <FormState.Provider value={{form, setForm, image, setImage, ImageHandler, FormHandler}} >
+      <FormState.Provider value={{form, setForm, image, setImage, ImageHandler, FormHandler, setImageUrl, setStoryUrl}} >
     <FormWrapper>
         <FormMain>
             <FormInputsWrapper>

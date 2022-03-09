@@ -15,14 +15,18 @@
     "@mui/material": "^5.4.3",
     "@mui/styled-engine-sc": "^5.4.2",
     "dotenv": "^16.0.0",
+    "ipfs-http-client": "^56.0.1",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-loader-spinner": "^6.0.0-0",
+    "react-toastify": "^8.2.0",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",
     "@nomiclabs/hardhat-waffle": "^2.0.2",
+    "babel-plugin-styled-components": "^2.0.6",
     "chai": "^4.3.6",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0",
