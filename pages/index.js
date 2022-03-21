@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { ethers } from 'ethers';
 import CampaignFactory from '../artifacts/contracts/Campaign.sol/CampaignFactory.json'
 import { useState } from 'react';
+import Link from 'next/link'
 
 export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [filter, setFilter] = useState(AllData);
@@ -51,9 +52,9 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
             <Text><EventIcon /></Text>
             <Text>{new Date(e.timeStamp * 1000).toLocaleString()}</Text>
           </CardData>
-          <Button>
+          <Link href={'/' + e.address}><Button>
             Go to Campaign
-          </Button>
+          </Button></Link>
         </Card>
         )
       })}
@@ -85,7 +86,8 @@ export async function getStaticProps() {
       image: e.args.imgURI,
       owner: e.args.owner,
       timeStamp: parseInt(e.args.timestamp),
-      amount: parseInt(e.args.requiredAmount)
+      amount: ethers.utils.formatEther(e.args.requiredAmount),
+      address: e.args.campaignAddress
     }
   });
 
@@ -97,7 +99,8 @@ export async function getStaticProps() {
       image: e.args.imgURI,
       owner: e.args.owner,
       timeStamp: parseInt(e.args.timestamp),
-      amount: parseInt(e.args.requiredAmount)
+      amount: ethers.utils.formatEther(e.args.requiredAmount),
+      address: e.args.campaignAddress
     }
   });
 
@@ -109,7 +112,8 @@ export async function getStaticProps() {
       image: e.args.imgURI,
       owner: e.args.owner,
       timeStamp: parseInt(e.args.timestamp),
-      amount: parseInt(e.args.requiredAmount)
+      amount: ethers.utils.formatEther(e.args.requiredAmount),
+      address: e.args.campaignAddress
     }
   });
 
@@ -121,7 +125,8 @@ export async function getStaticProps() {
       image: e.args.imgURI,
       owner: e.args.owner,
       timeStamp: parseInt(e.args.timestamp),
-      amount: parseInt(e.args.requiredAmount)
+      amount: ethers.utils.formatEther(e.args.requiredAmount),
+      address: e.args.campaignAddress
     }
   });
 

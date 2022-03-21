@@ -22,8 +22,9 @@ contract CampaignFactory {
         string memory category,
         string memory storyURI) public
     {
+
         Campaign newCampaign = new Campaign(
-            campaignTitle, requiredCampaignAmount, imgURI, storyURI);
+            campaignTitle, requiredCampaignAmount, imgURI, storyURI, msg.sender);
         
 
         deployedCampaigns.push(address(newCampaign));
@@ -56,13 +57,14 @@ contract Campaign {
         string memory campaignTitle, 
         uint requiredCampaignAmount, 
         string memory imgURI,
-        string memory storyURI
+        string memory storyURI,
+        address campaignOwner
     ) {
         title = campaignTitle;
         requiredAmount = requiredCampaignAmount;
         image = imgURI;
         story = storyURI;
-        owner = payable(msg.sender);
+        owner = payable(campaignOwner);
     }
 
     function donate() public payable {

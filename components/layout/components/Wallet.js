@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ethers } from "ethers";
 import { useState } from "react";
 
+
 const networks = {
   polygon: {
     chainId: `0x${Number(80001).toString(16)}`,
@@ -16,9 +17,11 @@ const networks = {
   },
 };
 
+
 const Wallet = () => {
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState("");
+
 
   const connectWallet = async () => {
     await window.ethereum.request({ method: "eth_requestAccounts" });
