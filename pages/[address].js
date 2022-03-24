@@ -82,7 +82,6 @@ export default function Detail({Data, DonationsData}) {
               "https://ipfs.infura.io/ipfs/" + Data.image
             }
           />
-          <img src={'https://bafybeih3u62l664yz4ffpgrjci6ytl64rbivsgpovv6csty3j6kbx6natm.ipfs.infura-ipfs.io/'} />
         </ImageSection>
         <Text>
           {story}
