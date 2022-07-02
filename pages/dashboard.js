@@ -55,9 +55,10 @@ export default function Dashboard() {
       {/* Card */}
       {campaignsData.map((e) => {
         return (
-          <Card>
+          <Card key={e.title}>
           <CardImg>
             <Image 
+              alt="crowdfunding dapp"
               layout='fill' 
               src={"https://ipfs.infura.io/ipfs/" + e.image} 
             />
@@ -77,7 +78,7 @@ export default function Dashboard() {
             <Text><EventIcon /></Text>
             <Text>{new Date(e.timeStamp * 1000).toLocaleString()}</Text>
           </CardData>
-          <Link href={'/' + e.address}><Button>
+          <Link passHref href={'/' + e.address}><Button>
             Go to Campaign
           </Button></Link>
         </Card>
