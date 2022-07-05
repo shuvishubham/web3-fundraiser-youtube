@@ -4,16 +4,16 @@ import { useState } from "react";
 
 
 const networks = {
-  polygon: {
-    chainId: `0x${Number(80001).toString(16)}`,
-    chainName: "Polygon Testnet",
+  buildbear: {
+    chainId: `0x${Number(8301).toString(16)}`,
+    chainName: "BuildBear Bold Bohr 2aa906",
     nativeCurrency: {
-      name: "MATIC",
-      symbol: "MATIC",
+      name: "BB ETH",
+      symbol: "BB ETH",
       decimals: 18,
     },
-    rpcUrls: ["https://rpc-mumbai.maticvigil.com/"],
-    blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+    rpcUrls: ["https://backend.buildbear.io/node/"],
+    blockExplorerUrls: ["https://explorer.buildbear.io/"],
   },
 };
 
@@ -31,7 +31,7 @@ const Wallet = () => {
         method: "wallet_addEthereumChain",
         params: [
           {
-            ...networks["polygon"],
+            ...networks["buildbear"],
           },
         ],
       });
@@ -46,7 +46,7 @@ const Wallet = () => {
 
   return (
     <ConnectWalletWrapper onClick={connectWallet}>
-      {balance == '' ? <Balance></Balance> : <Balance>{balance.slice(0,4)} Matic</Balance> }
+      {balance == '' ? <Balance></Balance> : <Balance>{balance.slice(0,4)} BB ETH</Balance> }
       {address == '' ? <Address>Connect Wallet</Address> : <Address>{address.slice(0,6)}...{address.slice(39)}</Address>}
     </ConnectWalletWrapper>
   );
