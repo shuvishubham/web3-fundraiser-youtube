@@ -1,12 +1,12 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\shiva\\Documents\\Youtube\\thesaviour\\contracts\\Campaign.sol": {
-      "lastModificationDate": 1647863055114,
-      "contentHash": "a26a33820a548406f476441a9d80ba9e",
+    "/home/aishwary/Practise/Next/web3-fundraiser-youtube/contracts/Campaign.sol": {
+      "lastModificationDate": 1657007236795,
+      "contentHash": "bcbfcc48902926b3697be024f43d9c71",
       "sourceName": "contracts/Campaign.sol",
       "solcConfig": {
-        "version": "0.8.10",
+        "version": "0.7.3",
         "settings": {
           "optimizer": {
             "enabled": false,
