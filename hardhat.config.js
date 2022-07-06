@@ -17,7 +17,7 @@ module.exports = {
   networks: {
     hardhat: {},
     buildbear: {
-      url: process.env.NEXT_PUBLIC_RPC_URL,
+      url: "https://backend.buildbear.io/node/adoring-antonelli-2ca027",
       accounts: [privateKey]
     }
   }

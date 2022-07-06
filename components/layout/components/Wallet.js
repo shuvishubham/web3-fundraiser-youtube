@@ -5,8 +5,8 @@ import { useState } from "react";
 
 const networks = {
   buildbear: {
-    chainId: `0x${Number(8301).toString(16)}`,
-    chainName: "BuildBear Bold Bohr 2aa906",
+    chainId: `0x${Number(8308).toString(16)}`,
+    chainName: "BuildBear Adoring Antonelli 2ca027",
     nativeCurrency: {
       name: "BB ETH",
       symbol: "BB ETH",
