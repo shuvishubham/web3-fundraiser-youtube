@@ -62,9 +62,9 @@ const ConnectWalletWrapper = styled.div`
   color: ${(props) => props.theme.color};
   border-radius: 10px;
   margin-right: 15px;
-  font-family: 'Roboto';
-  font-weight: bold;
-  font-size: small;
+  font-family: 'Poppins';
+  font-weight: normal;
+  font-size: 15px;
   cursor: pointer;
 `;
 

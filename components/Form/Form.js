@@ -144,10 +144,12 @@ const Button = styled.button`
   width:30% ;
   padding:15px ;
   color:white ;
-  background-color:#00b712 ;
-  background-image:
-      linear-gradient(180deg, #00b712 0%, #5aff15 80%) ;
+
   border:none;
+  background-color: #08AEEA;
+background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+
+  border-radius:20px;
   margin-top:30px ;
   cursor: pointer;
   font-weight:bold ;

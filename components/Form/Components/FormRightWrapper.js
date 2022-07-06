@@ -87,7 +87,7 @@ const FormRight = styled.div`
 const FormInput = styled.div`
   display:flex ;
   flex-direction:column;
-  font-family:'poppins';
+  font-family:'Poppins';
   margin-top:10px ;
 `
 
@@ -159,9 +159,9 @@ const Button = styled.button`
   width:100% ;
   padding:15px ;
   color:white ;
-  background-color:#00b712 ;
-  background-image:
-      linear-gradient(180deg, #00b712 0%, #5aff15 80%) ;
+  border-radius:30px;
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
   border:none;
   margin-top:30px ;
   cursor: pointer;

@@ -1,15 +1,15 @@
 const light = {
     color: "#000",
-    bgColor: '#efe7fd',
-    bgImage: 'linear-gradient(180deg, #efe7fd 0%, #bdccf7 60%)',
+    bgColor: '#cfc5e3',
+    bgImage: 'linear-gradient(180deg, #b5d9e8 5%, #3c687a 90%)',
     bgDiv: '#fff',
-    bgSubDiv: '#efe7fd'
+    bgSubDiv: '#cbe7f2'
 }
 
 const dark = {
     color: '#fff',
-    bgColor: '#923cb5',
-    bgImage: 'linear-gradient(180deg, #2f0f3d 5%, #000000 90%)',
+    bgColor: '#3a3b3a',
+    bgImage: 'linear-gradient(180deg, #3a3b3a 5%, #000 90%)',
     bgDiv: 'black',
     bgSubDiv: 'rgb(33, 36, 41)'
 }
