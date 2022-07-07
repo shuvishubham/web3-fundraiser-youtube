@@ -24,6 +24,8 @@ const HeaderNavWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-style:'Poppins';
+  letter-spacing: 3px;
   background-color: ${(props) => props.theme.bgDiv};
   padding: 6px;
   height: 50%;
@@ -36,7 +38,7 @@ const HeaderNavLinks = styled.div`
   justify-content: space-between;
   background-color: ${(props) => props.active ? props.theme.bgSubDiv : props.theme.bgDiv };
   height: 100%;
-  font-family: 'Roboto';
+  font-family: 'Poppins';
   margin: 5px;
   border-radius: 10px;
   padding: 0 5px 0 5px;

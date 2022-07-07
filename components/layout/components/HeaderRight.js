@@ -24,6 +24,8 @@ const HeaderRightWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 16px;
+  letter-spacing:3px;
+  font-style:normal;
   height: 50%;
 `
 const ThemeToggle = styled.div`

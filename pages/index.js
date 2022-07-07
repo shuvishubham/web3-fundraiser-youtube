@@ -9,23 +9,26 @@ import CampaignFactory from '../artifacts/contracts/Campaign.sol/CampaignFactory
 import { useState } from 'react';
 import Link from 'next/link'
 
+
 export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [filter, setFilter] = useState(AllData);
 
   return (
-    <HomeWrapper>
+    <HomeWrapper className='mwrap'>
 
       {/* Filter Section */}
       <FilterWrapper>
+     
         <FilterAltIcon style={{fontSize:40}} />
         <Category onClick={() => setFilter(AllData)}>All</Category>
-        <Category onClick={() => setFilter(HealthData)}>Health</Category>
-        <Category onClick={() => setFilter(EducationData)}>Education</Category>
-        <Category onClick={() => setFilter(AnimalData)}>Animal</Category>
+        <Category onClick={() => setFilter(HealthData)} >Health</Category>
+        <Category onClick={() => setFilter(EducationData)} >Education</Category>
+        <Category onClick={() => setFilter(AnimalData)} >Animal</Category>
+      
       </FilterWrapper>
 
       {/* Cards Container */}
-      <CardsWrapper>
+      <CardsWrapper className='wrap'>
 
       {/* Card */}
       {filter.map((e) => {
@@ -42,18 +45,18 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
             {e.title}
           </Title>
           <CardData>
-            <Text>Owner<AccountBoxIcon /></Text> 
+            <Text><AccountBoxIcon />Owner</Text> 
             <Text>{e.owner.slice(0,6)}...{e.owner.slice(39)}</Text>
           </CardData>
           <CardData>
-            <Text>Amount<PaidIcon /></Text> 
+            <Text ><PaidIcon />Amount</Text> 
             <Text>{e.amount} Matic</Text>
           </CardData>
           <CardData>
-            <Text><EventIcon /></Text>
-            <Text>{new Date(e.timeStamp * 1000).toLocaleString()}</Text>
+            <Text ><EventIcon />Timestamp</Text>
+            <Text >{new Date(e.timeStamp * 1000).toLocaleString()}</Text>
           </CardData>
-          <Link passHref href={'/' + e.address}><Button>
+          <Link passHref href={'/' + e.address} ><Button>
             Go to Campaign
           </Button></Link>
         </Card>
@@ -140,12 +143,6 @@ export async function getStaticProps() {
     }
   }
 }
-
-
-
-
-
-
 const HomeWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -157,27 +154,44 @@ const FilterWrapper = styled.div`
   align-items: center;
   width: 80%;
   margin-top: 15px;
+  margin-left:480px;
+
 `
 const Category = styled.div`
   padding: 10px 15px;
   background-color: ${(props) => props.theme.bgDiv};
+  border-radius:10px;
   margin: 0px 15px;
-  border-radius: 8px;
   font-family: 'Poppins';
-  font-weight: normal;
+  font-size:20px;
+  letter-spacing:2px;
   cursor: pointer;
+  &:hover{
+    transform: translateY(-10px);
+    transition: transform 0.5s;
+  }
+  
+  &:not(:hover){
+    transition: transform 0.5s;
+  }
 `
 const CardsWrapper = styled.div`
   display: flex;
+
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 80%;
+  margin:30px;
+  width: 100%;
+  margin-left: 130px;
   margin-top: 25px;
+  
 `
 const Card = styled.div`
   width: 30%;
   margin-top: 20px;
-  background-color: ${(props) => props.theme.bgDiv};
+  border: 5px solid white;
+
+  background-color: ${(props) => props.active ? props.theme.bgSubDiv : props.theme.bgDiv };
 
   &:hover{
     transform: translateY(-10px);
@@ -190,47 +204,53 @@ const Card = styled.div`
 `
 const CardImg = styled.div`
   position: relative;
-  height: 120px;
+  border-radius:"30px";
+  height: 130px;
   width: 100%;
 `
 const Title = styled.h2`
-  font-family: 'Roboto';
+  font-family: 'Poppins';
   font-size: 18px;
+  letter-spacing:2px;
   margin: 2px 0px;
   background-color: ${(props) => props.theme.bgSubDiv};
   padding: 5px;
   cursor: pointer;
-  font-weight: normal;
+  text-align:center;
+  font-weight: bold;
 `
 const CardData = styled.div`
+
   display: flex;
   justify-content: space-between;
-  margin: 2px 0px;
+  margin: 2px 10px;
+  font-family: 'Poppins'
   background-color: ${(props) => props.theme.bgSubDiv};
   padding: 5px;
   cursor: pointer;
+
   `
 const Text = styled.p`
   display: flex;
+  font-family: 'Poppins';
   align-items: center;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto';
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 20px;
+  height: 60px;
+  background-color: ${(props) => props.active ? props.theme.bgSubDiv : props.theme.bgDiv };
+
 `
 const Button = styled.button`
   padding: 8px;
   text-align: center;
   width: 100%;
-  background-color:#00b712 ;
-  background-image:
-      linear-gradient(180deg, #00b712 0%, #5aff15 80%); 
-  border: none;
+  border:none;
   cursor: pointer;
-  font-family: 'Roboto';
-  text-transform: uppercase;
-  color: #fff;
-  font-size: 14px;
+  letter-spacing:2px;
+  font-family: 'Poppins';
+  font-size: 18px;
+  background-color: ${(props) => props.theme.bgSubDiv};
   font-weight: bold;
+  
 `
