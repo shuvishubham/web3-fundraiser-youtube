@@ -5,7 +5,7 @@ import { createContext, useState } from 'react';
 import {TailSpin} from 'react-loader-spinner';
 import {ethers} from 'ethers';
 import {toast} from 'react-toastify';
-import CampaignFactory from '../../artifacts/contracts/Campaign.sol/CampaignFactory.json'
+import CampaignFactory from '../../artifacts/contracts/CampaignFactory.sol/CampaignFactory.json'
 import CrowdfundImg from '../../assets/crowdfund-image.jpg'
 
 const FormState = createContext();

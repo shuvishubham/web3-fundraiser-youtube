@@ -18,6 +18,7 @@ module.exports = {
     hardhat: {},
     buildbear: {
       url: "https://backend.buildbear.io/node/bold-bohr-2aa906",
+      accounts:["df57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e"],
     }
   }
 };

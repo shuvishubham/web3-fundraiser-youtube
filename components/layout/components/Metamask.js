@@ -3,7 +3,6 @@ import Web3Modal from 'web3modal'
 import { providers } from "ethers";
 
 const Metamask = () => {
-
     const [connectToWallet, setConnectedWallet] = useState(false)
     const providerOptions= {
         walletconnect: {

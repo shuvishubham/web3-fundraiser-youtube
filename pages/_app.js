@@ -3,9 +3,10 @@ import '../style/global.css'
 
 function MyApp({ Component, pageProps }) {
   return (
-  <Layout>
-    <Component {...pageProps} />
-  </Layout>
+    <div><p>Hi</p></div>
+  // <Layout>
+  //   <Component {...pageProps} />
+  // </Layout>
   )
 }
 
