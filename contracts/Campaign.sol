@@ -3,9 +3,6 @@
 pragma solidity >0.7.0 <=0.9.0;
 
 
-
-
-
 contract Campaign {
     string public title;
     uint public requiredAmount;
@@ -15,6 +12,7 @@ contract Campaign {
     uint public receivedAmount;
 
     event donated(address indexed donar, uint indexed amount, uint indexed timestamp);
+    event withdrawn(address campaignowner, uint indexed amount);
 
     constructor(
         string memory campaignTitle, 
@@ -29,13 +27,22 @@ contract Campaign {
         story = storyURI;
         owner = payable(campaignOwner);
     }
+   
 
     function donate() public payable {
-        require(requiredAmount > receivedAmount, "required amount fullfilled");
-        owner.transfer(msg.value);
+        require(msg.value <= 1000000000000000000, "Donation amount should be less than 1 ETH");
         receivedAmount += msg.value;
         emit donated(msg.sender, msg.value, block.timestamp);
     }
+    function withdraw() public payable {
+        require(msg.sender == owner, "Only the owner of the campaign can withdraw");
+        require(receivedAmount > requiredAmount, "Required amount not fulfilled yet");
+        owner.transfer(receivedAmount);
+        receivedAmount = 0;
+    emit withdrawn(msg.sender, msg.value);
+    }
+
+    
 }
 
 contract CampaignFactory {

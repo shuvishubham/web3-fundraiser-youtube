@@ -72,7 +72,7 @@ export default function Dashboard() {
           </CardData>
           <CardData>
             <Text>Amount<PaidIcon /></Text> 
-            <Text>{e.amount} Matic</Text>
+            <Text>{e.amount} BB ETH</Text>
           </CardData>
           <CardData>
             <Text><EventIcon /></Text>

@@ -57,9 +57,7 @@ export default function Detail({Data, DonationsData}) {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      
       const contract = new ethers.Contract(Data.address, Campaign.abi, signer);
-      
       const transaction = await contract.donate({value: ethers.utils.parseEther(amount)});
       await transaction.wait();
 
@@ -72,6 +70,7 @@ export default function Detail({Data, DonationsData}) {
 
   }
 
+ 
   return (
     <DetailWrapper>
       <LeftContainer>
@@ -124,7 +123,7 @@ export default function Detail({Data, DonationsData}) {
               return (
                 <Donation key={e.timestamp}>
                 <DonationData>{e.donar.slice(0,6)}...{e.donar.slice(39)}</DonationData>
-                <DonationData>{e.amount} Matic</DonationData>
+                <DonationData>{e.amount} BB ETH</DonationData>
                 <DonationData>{new Date(e.timestamp * 1000).toLocaleString()}</DonationData>
               </Donation>
               )

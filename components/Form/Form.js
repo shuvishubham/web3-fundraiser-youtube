@@ -60,7 +60,12 @@ const Form = () => {
             CampaignFactory.abi,
             signer
           );
-       
+       if (form.uploaded === undefined) {
+        setImage({
+          name: {CrowdfundImg},
+          
+        })
+       }
             
           const CampaignAmount = ethers.utils.parseEther(form.requiredAmount);
     

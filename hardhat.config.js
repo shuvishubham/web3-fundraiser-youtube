@@ -17,7 +17,7 @@ module.exports = {
   networks: {
     hardhat: {},
     buildbear: {
-      url: "https://backend.buildbear.io/node/adoring-antonelli-2ca027",
+      url: "https://backend.buildbear.io/node/bold-bohr-2aa906",
       accounts: [privateKey]
     }
   }

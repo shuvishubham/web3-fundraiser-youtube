@@ -26,7 +26,7 @@ const FormRightWrapper = () => {
       }
     }
     if(Handler.image === null) {
-      console.log('no image')
+      console.log('nullldd')
     }
 
 
