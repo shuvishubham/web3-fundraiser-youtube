@@ -5,14 +5,14 @@ import { useState } from "react";
 
 const networks = {
   buildbear: {
-    chainId: `0x${Number(8308).toString(16)}`,
+    chainId: `0x${Number(8301).toString(16)}`,
     chainName: "BuildBear Adoring Antonelli 2ca027",
     nativeCurrency: {
       name: "BB ETH",
       symbol: "BB ETH",
       decimals: 18,
     },
-    rpcUrls: ["https://backend.buildbear.io/node/"],
+    rpcUrls: ["https://backend.buildbear.io/node/bold-bohr-2aa906"],
     blockExplorerUrls: ["https://explorer.buildbear.io/"],
   },
 };
@@ -43,6 +43,7 @@ const Wallet = () => {
       setBalance(Balance);
     
   };
+  console.log(connectWallet, 'connect')
 
   return (
     <ConnectWalletWrapper onClick={connectWallet}>

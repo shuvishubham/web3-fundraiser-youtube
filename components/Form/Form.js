@@ -6,6 +6,7 @@ import {TailSpin} from 'react-loader-spinner';
 import {ethers} from 'ethers';
 import {toast} from 'react-toastify';
 import CampaignFactory from '../../artifacts/contracts/Campaign.sol/CampaignFactory.json'
+import CrowdfundImg from '../../assets/crowdfund-image.jpg'
 
 const FormState = createContext();
 
@@ -35,7 +36,9 @@ const Form = () => {
 
     const ImageHandler = (e) => {
         setImage(e.target.files[0]);
+        console.log(e.target.files[0])
     }
+    
 
     const startCampaign = async (e) => {
         e.preventDefault();
@@ -48,9 +51,7 @@ const Form = () => {
           toast.warn("Story Field Is Empty");
         } else if(form.requiredAmount === "") {
           toast.warn("Required Amount Field Is Empty");
-        } else if(uploaded == false) {
-            toast.warn("Files Upload Required")
-        }
+        } 
         else {        
           setLoading(true);  
     
@@ -59,6 +60,7 @@ const Form = () => {
             CampaignFactory.abi,
             signer
           );
+       
             
           const CampaignAmount = ethers.utils.parseEther(form.requiredAmount);
     
@@ -69,7 +71,7 @@ const Form = () => {
             form.category,
             storyUrl
           );
-    
+    console.log(campaignData, 'data')
           await campaignData.wait();   
     
           setAddress(campaignData.to);
@@ -86,7 +88,7 @@ const Form = () => {
                         <TailSpin height={60} />
                     </Spinner> :
                 <Address>
-                    <h1>Campagin Started Sucessfully!</h1>
+                    <h1>Campaign Started Sucessfully!</h1>
                     <h1>{address}</h1>
                     <Button>
                         Go To Campaign
