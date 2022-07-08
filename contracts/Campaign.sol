@@ -30,7 +30,6 @@ contract Campaign {
    
 
     function donate() public payable {
-        require(msg.value <= 1000000000000000000, "Donation amount should be less than 1 ETH");
         receivedAmount += msg.value;
         emit donated(msg.sender, msg.value, block.timestamp);
     }
