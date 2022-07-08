@@ -70,6 +70,20 @@ export default function Detail({Data, DonationsData}) {
 
   }
 
+  const WithdrawFunds = async () => {
+    const withdrawAmt = Data.receivedAmount;
+    try {
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(Data.address, Campaign.abi, signer);
+      const transaction = await contract.withdraw({value: ethers.utils.parseEther(withdrawAmt)});
+      await transaction.wait();
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
  
   return (
     <DetailWrapper>
@@ -93,6 +107,7 @@ export default function Detail({Data, DonationsData}) {
           <Input value={amount} onChange={(e) => setAmount(e.target.value)} type="number" placeholder="Enter Amount To Donate" />
           <Donate onClick={DonateFunds}>Donate</Donate>
         </DonateSection>
+        <button onClick={WithdrawFunds}>Withdraw</button>
         <FundsData>
           <Funds>
             <FundText>Required Amount</FundText>
