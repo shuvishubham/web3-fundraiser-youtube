@@ -1,17 +1,17 @@
 const light = {
     color: "#000",
-    bgColor: '#cfc5e3',
-    bgImage: 'linear-gradient(180deg, #b5d9e8 5%, #3c687a 90%)',
-    bgDiv: '#fff',
-    bgSubDiv: '#cbe7f2'
+    bgColor: '#f5f5f5',
+    bgImage: '#f5f5f5',
+    bgDiv: '#e7e7e7',
+    bgSubDiv: '#d0d0d0'
 }
 
 const dark = {
     color: '#fff',
-    bgColor: '#3a3b3a',
-    bgImage: 'linear-gradient(180deg, #3a3b3a 5%, #000 90%)',
-    bgDiv: 'black',
-    bgSubDiv: 'rgb(33, 36, 41)'
+    bgColor: '#15202B',
+    bgImage: '#15202B',
+    bgDiv: '#22303C',
+    bgSubDiv: '#8899A6'
 }
 
 const themes = {

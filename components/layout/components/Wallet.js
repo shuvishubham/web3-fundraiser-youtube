@@ -6,7 +6,7 @@ import { useState } from "react";
 const networks = {
   buildbear: {
     chainId: `0x${Number(8301).toString(16)}`,
-    chainName: "BuildBear Adoring Antonelli 2ca027",
+    chainName: "BuildBear Bold Bohr 2aa906",
     nativeCurrency: {
       name: "BB ETH",
       symbol: "BB ETH",
@@ -26,6 +26,7 @@ const Wallet = () => {
   const connectWallet = async () => {
     await window.ethereum.request({ method: "eth_requestAccounts" });
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  
     if (provider.network !== "matic") {
       await window.ethereum.request({
         method: "wallet_addEthereumChain",
@@ -36,19 +37,21 @@ const Wallet = () => {
         ],
       });
     } 
+    
+ 
       const account = provider.getSigner();
+      console.log(account, 'acc')
       const Address = await account.getAddress();
       setAddress(Address);
       const Balance = ethers.utils.formatEther(await account.getBalance());
       setBalance(Balance);
     
   };
-  console.log(connectWallet, 'connect')
 
   return (
     <ConnectWalletWrapper onClick={connectWallet}>
       {balance == '' ? <Balance></Balance> : <Balance>{balance.slice(0,4)} BB ETH</Balance> }
-      {address == '' ? <Address>Connect Wallet</Address> : <Address>{address.slice(0,6)}...{address.slice(39)}</Address>}
+      {address == '' ? "" : <Address>{address.slice(0,6)}...{address.slice(39)}</Address>}
     </ConnectWalletWrapper>
   );
 };
@@ -65,7 +68,7 @@ const ConnectWalletWrapper = styled.div`
   margin-right: 15px;
   font-family: 'Poppins';
   font-weight: normal;
-  font-size: 15px;
+  font-size: 10px;
   cursor: pointer;
 `;
 

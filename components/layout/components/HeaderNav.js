@@ -28,6 +28,7 @@ const HeaderNavWrapper = styled.div`
   letter-spacing: 3px;
   background-color: ${(props) => props.theme.bgDiv};
   padding: 6px;
+
   height: 50%;
   border-radius: 10px;
   `

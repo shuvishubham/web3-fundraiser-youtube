@@ -11,9 +11,8 @@ const HeaderRight = () => {
   const ThemeToggler = useContext(App);
 
   return (
-    <HeaderRightWrapper>
-      <Metamask />
-    
+    <HeaderRightWrapper> 
+    <Wallet />
       <ThemeToggle onClick={ThemeToggler.changeTheme}>
       {ThemeToggler.theme === 'light' ? <DarkModeIcon /> : <Brightness7Icon />}
       </ThemeToggle>

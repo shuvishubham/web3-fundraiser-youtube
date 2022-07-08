@@ -1,37 +1,82 @@
 import styled from 'styled-components';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import PaidIcon from '@mui/icons-material/Paid';
-import EventIcon from '@mui/icons-material/Event';
 import Image from 'next/image';
 import { ethers } from 'ethers';
 import CampaignFactory from '../artifacts/contracts/Campaign.sol/CampaignFactory.json'
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link'
-
+import Web3Modal from 'web3modal'
+import { providers } from "ethers";
 
 export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [filter, setFilter] = useState(AllData);
+  const [connected, setConnected] = useState(false)
+  const [connectToWallet, setConnectedWallet] = useState(false)
+
+  const providerOptions= {
+    walletconnect: {
+        options: {
+            rpc: {
+                8301: 'https://backend.buildbear.io/node/bold-bohr-2aa906'
+            },
+            chainId: 8301
+        }
+    }
+}
+const Web3ModalRef = useRef();
+const getSignerorProvider = async (needSigner = false) => {
+    const provider = await Web3ModalRef.current.connect();
+    const Web3Provider = new providers.Web3Provider(provider);
+    const {chainId} = await Web3Provider.getNetwork();
+    if (chainId !== 8301) {
+        alert('Use BuildBear Network')
+        throw new Error('Change network to BuildBear');
+    }
+    if (needSigner) {
+        const signer = Web3Provider.getSigner();
+        console.log(signer, 'signer')
+        return signer;
+
+    }
+    return provider;
+}
+
+const connectWallet = async () => {
+   try {
+    await getSignerorProvider();
+    
+    setConnectedWallet(true)
+    setConnected(true)
+   } catch (err) {
+    console.log(err)
+   }
+}
+
+useEffect(() => {
+    Web3ModalRef.current = new Web3Modal({
+        network: 'buildbear',
+        providerOptions,
+        
+    })
+
+}, [])
 
   return (
+    <div>
+      {connected?
     <HomeWrapper className='mwrap'>
 
       {/* Filter Section */}
-      <FilterWrapper>
-     
-        <FilterAltIcon style={{fontSize:40}} />
-        <Category onClick={() => setFilter(AllData)}>All</Category>
-        <Category onClick={() => setFilter(HealthData)} >Health</Category>
-        <Category onClick={() => setFilter(EducationData)} >Education</Category>
-        <Category onClick={() => setFilter(AnimalData)} >Animal</Category>
-      
-      </FilterWrapper>
+    
 
       {/* Cards Container */}
       <CardsWrapper className='wrap'>
 
       {/* Card */}
-      {filter.map((e) => {
+      {filter === undefined && <p>No campaign is created yet! Create one with Build Bear!</p>}
+
+      {filter !== undefined && filter.map((e) => {
         return (
           <Card key={e.title}>
           <CardImg>
@@ -45,17 +90,14 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
             {e.title}
           </Title>
           <CardData>
-            <Text><AccountBoxIcon />Owner</Text> 
-            <Text>{e.owner.slice(0,6)}...{e.owner.slice(39)}</Text>
+            <Text>Owner</Text> 
+            <Text>{e.owner.slice(0,9)}...{e.owner.slice(39)}</Text>
           </CardData>
           <CardData>
-            <Text ><PaidIcon />Amount</Text> 
-            <Text>{e.amount} Matic</Text>
+            <Text >Amount</Text> 
+            <Text>{e.amount} BB ETH</Text>
           </CardData>
-          <CardData>
-            <Text ><EventIcon />Timestamp</Text>
-            <Text >{new Date(e.timeStamp * 1000).toLocaleString()}</Text>
-          </CardData>
+         
           <Link passHref href={'/' + e.address} ><Button>
             Go to Campaign
           </Button></Link>
@@ -65,7 +107,8 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
         {/* Card */}
 
       </CardsWrapper>
-    </HomeWrapper>
+    </HomeWrapper> : <button style={{alignItems: 'center', justifyContent: 'center', marginLeft: '44%', marginTop: '20%', border: 'none', backgroundColor: '#d0d0d0', padding: '16px 27px' , borderRadius: '10px', fontSize: '25px', cursor: 'pointer'}} onClick={connectWallet}>Connect to Wallet</button>}
+    </div>
   )
 }
 
@@ -145,9 +188,11 @@ export async function getStaticProps() {
 }
 const HomeWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  overflow-x: hidden;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-flow: nowrap;
   align-items: center;
-  width: 100%;
 `
 const FilterWrapper = styled.div`
   display: flex;
@@ -162,7 +207,7 @@ const Category = styled.div`
   background-color: ${(props) => props.theme.bgDiv};
   border-radius:10px;
   margin: 0px 15px;
-  font-family: 'Poppins';
+  font-family: 'Roboto';
   font-size:20px;
   letter-spacing:2px;
   cursor: pointer;
@@ -177,20 +222,21 @@ const Category = styled.div`
 `
 const CardsWrapper = styled.div`
   display: flex;
-
   justify-content: space-between;
   flex-wrap: wrap;
   margin:30px;
   width: 100%;
-  margin-left: 130px;
-  margin-top: 25px;
-  
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 50px;
+  border-radius: 16px;
 `
 const Card = styled.div`
-  width: 30%;
-  margin-top: 20px;
-  border: 5px solid white;
-
+  width: 25%;
+  max-width: 400px;
+  margin-top: 60px;
+  border: 10px solid #f0f0f0;
+  border-radius: '25px';
   background-color: ${(props) => props.active ? props.theme.bgSubDiv : props.theme.bgDiv };
 
   &:hover{
@@ -205,11 +251,11 @@ const Card = styled.div`
 const CardImg = styled.div`
   position: relative;
   border-radius:"30px";
-  height: 130px;
+  height: 180px;
   width: 100%;
 `
 const Title = styled.h2`
-  font-family: 'Poppins';
+  font-family: 'Roboto';
   font-size: 18px;
   letter-spacing:2px;
   margin: 2px 0px;
@@ -236,7 +282,7 @@ const Text = styled.p`
   align-items: center;
   margin: 0;
   padding: 0;
-  font-size: 20px;
+  font-size: 15px;
   height: 60px;
   background-color: ${(props) => props.active ? props.theme.bgSubDiv : props.theme.bgDiv };
 

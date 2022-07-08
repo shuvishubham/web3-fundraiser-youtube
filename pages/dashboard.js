@@ -47,12 +47,14 @@ export default function Dashboard() {
   }, [])
 
   return (
+ 
     <HomeWrapper>
 
       {/* Cards Container */}
       <CardsWrapper>
 
       {/* Card */}
+    
       {campaignsData.map((e) => {
         return (
           <Card key={e.title}>
@@ -84,10 +86,12 @@ export default function Dashboard() {
         </Card>
         )
       })}
+   
         {/* Card */}
 
       </CardsWrapper>
     </HomeWrapper>
+
   )
 }
 
