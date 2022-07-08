@@ -18,7 +18,6 @@ module.exports = {
     hardhat: {},
     buildbear: {
       url: "https://backend.buildbear.io/node/bold-bohr-2aa906",
-      accounts: [privateKey]
     }
   }
 };
