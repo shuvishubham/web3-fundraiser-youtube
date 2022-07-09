@@ -8,108 +8,119 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link'
 import Web3Modal from 'web3modal'
 import { providers } from "ethers";
-import { FACTORY_ADDRESS } from '../constants/constants';
+import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
 
 export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [filter, setFilter] = useState(AllData);
-  const [connected, setConnected] = useState(false)
-  const [connectToWallet, setConnectedWallet] = useState(false)
 
-  const providerOptions= {
-    walletconnect: {
-        options: {
-            rpc: {
-                8301: 'https://backend.buildbear.io/node/bold-bohr-2aa906'
-            },
-            chainId: 8301
-        }
-    }
-}
-// const Web3ModalRef = useRef();
-// const getSignerorProvider = async (needSigner = false) => {
-//     const provider = await Web3ModalRef.current.connect();
-//     const Web3Provider = new providers.Web3Provider(provider);
-//     const {chainId} = await Web3Provider.getNetwork();
-//     if (chainId !== 8301) {
-//         alert('Use BuildBear Network')
-//         throw new Error('Change network to BuildBear');
-//     }
-//     if (needSigner) {
-//         const signer = Web3Provider.getSigner();
-//         console.log(signer, 'signer')
-//         return signer;
-//     }
-//     return provider;
-// }
-
-const connectWallet = async () => {
-   try {
-    await getSignerorProvider();
+  let chainId;
+    const [connectToWallet, setConnectedWallet] = useState(false)
+    const [getChainId, setChainId] = useState(null);
+ 
+    // const providerOptions= {
+    //     walletconnect: {
+    //         options: {
+    //             rpc: {
+    //                 8301: 'https://backend.buildbear.io/node/bold-bohr-2aa906'
+    //             },
+    //             chainId: 8301
+    //         }
+    //     }
+    // }
+    const Web3ModalRef = useRef();
+    const getSignerorProvider = async (needSigner = true) => {
+        const provider = await Web3ModalRef.current.connect();
+        const Web3Provider = new providers.Web3Provider(provider);
+        chainId = await Web3Provider.getNetwork();
+        var fetchChainId = chainId
+        // if (chainId !== 8301) {
+        //     alert('Use BuildBear Network')
+        //     throw new Error('Change network to BuildBear');
+        // }
     
-    setConnectedWallet(true)
-    setConnected(true)
-   } catch (err) {
-    console.log(err)
-   }
-}
+        if (needSigner) {
+            const signer = Web3Provider.getSigner();
+            // console.log(signer, 'signer')
+            return signer;
+        }
+        return provider;
+    }
 
-// useEffect(() => {
-//     Web3ModalRef.current = new Web3Modal({
-//         network: 'buildbear',
-//         providerOptions,
-        
-//     })
 
-// }, [])
+
+    const connectWallet = async () => {
+       try {
+        await getSignerorProvider();
+        setConnectedWallet(true)
+        setChainId(chainId)
+        console.log(chainId)
+       } catch (err) {
+        console.log(err)
+       }
+    }
+
+    for (let [key, value] of Object.entries(CAMPAIGN_FACTORY_DETAILS)) {
+      if (getChainId === null && console.log('connect to metamamsk'))
+      if(getChainId !== null && key == getChainId.chainId){
+        console.log("connected to bla");
+      }
+    }
+   
+  
+    useEffect(() => {
+        Web3ModalRef.current = new Web3Modal({        
+        })
+        ethereum.on('chainChanged', (_chainId) => window.location.reload());
+    }, [getChainId])
 
   return (
-    <div></div>
-    // <div>
-    //   {connected?
-    // <HomeWrapper className='mwrap'>
+    // <div></div>
+    <div>
+      {connectToWallet?
+    <HomeWrapper className='mwrap'>
 
-    //   {/* Filter Section */}
+      {/* Filter Section */}
     
 
-    //   {/* Cards Container */}
-    //   <CardsWrapper className='wrap'>
+      {/* Cards Container */}
+      <CardsWrapper className='wrap'>
 
-    //   {/* Card */}
-    //   {filter === undefined && <p>No campaign is created yet! Create one with Build Bear!</p>}
+      {/* Card */}
+      {filter === undefined && <p>No campaign is created yet! Create one with Build Bear!</p>}
 
-    //   {filter !== undefined && filter.map((e) => {
-    //     return (
-    //       <Card key={e.title}>
-    //       <CardImg>
-    //         <Image 
-    //           alt="Crowdfunding dapp"
-    //           layout='fill' 
-    //           src={"https://ipfs.infura.io/ipfs/" + e.image} 
-    //         />
-    //       </CardImg>
-    //       <Title>
-    //         {e.title}
-    //       </Title>
-    //       <CardData>
-    //         <Text>Owner</Text> 
-    //         <Text>{e.owner.slice(0,9)}...{e.owner.slice(39)}</Text>
-    //       </CardData>
-    //       <CardData>
-    //         <Text >Amount</Text> 
-    //         <Text>{e.amount} BB ETH</Text>
-    //       </CardData>
+      {filter !== undefined && filter.map((e) => {
+        return (
+          <Card key={e.title}>
+          <CardImg>
+            <Image 
+              alt="Crowdfunding dapp"
+              layout='fill' 
+              src={"https://ipfs.infura.io/ipfs/" + e.image} 
+            />
+          </CardImg>
+          <Title>
+            {e.title}
+          </Title>
+          <CardData>
+            <Text>Owner</Text> 
+            <Text>{e.owner.slice(0,9)}...{e.owner.slice(39)}</Text>
+          </CardData>
+          <CardData>
+            <Text >Amount</Text> 
+            <Text>{e.amount} BB ETH</Text>
+          </CardData>
          
-    //       <Link passHref href={'/' + e.address} ><Button>
-    //         Go to Campaign
-    //       </Button></Link>
-    //     </Card>
-    //     )
-    //   })}
-    //     {/* Card */}
+          <Link passHref href={'/' + e.address} ><Button>
+            Go to Campaign
+          </Button></Link>
+        </Card>
+        )
+      })}
+        {/* Card */}
 
-    //   </CardsWrapper>
-    // </HomeWrapper> : <button style={{alignItems: 'center', justifyContent: 'center', marginLeft: '44%', marginTop: '20%', border: 'none', backgroundColor: '#d0d0d0', padding: '16px 27px' , borderRadius: '10px', fontSize: '25px', cursor: 'pointer'}} onClick={connectWallet}>Connect to Wallet</button>}
-    // </div>
+      </CardsWrapper>
+    </HomeWrapper> : <button style={{alignItems: 'center', justifyContent: 'center', marginLeft: '44%', marginTop: '20%', border: 'none', backgroundColor: '#d0d0d0', padding: '16px 27px' , borderRadius: '10px', fontSize: '25px', cursor: 'pointer'}} onClick={connectWallet}>Connect to Wallet</button>}
+    </div>
   )
 }
 
