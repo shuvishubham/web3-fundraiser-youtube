@@ -13,9 +13,13 @@ import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
 export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [filter, setFilter] = useState(AllData);
 
+
   let chainId;
+  let networkId;
+  let networkName;
     const [connectToWallet, setConnectedWallet] = useState(false)
     const [getChainId, setChainId] = useState(null);
+   
  
     // const providerOptions= {
     //     walletconnect: {
@@ -45,14 +49,15 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
         }
         return provider;
     }
+    
 
 
 
     const connectWallet = async () => {
        try {
         await getSignerorProvider();
-        setConnectedWallet(true)
-        setChainId(chainId)
+        setConnectedWallet(true);
+        setChainId(chainId);
         console.log(chainId)
        } catch (err) {
         console.log(err)
@@ -60,9 +65,17 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
     }
 
     for (let [key, value] of Object.entries(CAMPAIGN_FACTORY_DETAILS)) {
-      if (getChainId === null && console.log('connect to metamamsk'))
-      if(getChainId !== null && key == getChainId.chainId){
-        console.log("connected to bla");
+      if (getChainId === null && console.log('connect to metamamsk'));
+      if(getChainId != null){
+        if (key == getChainId.chainId) {
+          console.log("connected to build bear");
+          networkId = getChainId.chainId;
+        }
+        else if (key != getChainId.chainId) {
+console.log(getChainId.name)
+networkName = getChainId.name;
+networkId = getChainId.chainId;
+        }
       }
     }
    
@@ -71,12 +84,13 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
         Web3ModalRef.current = new Web3Modal({        
         })
         ethereum.on('chainChanged', (_chainId) => window.location.reload());
-    }, [getChainId])
+    }, [])
 
   return (
     // <div></div>
     <div>
-      {connectToWallet?
+      {(connectToWallet && networkId != 8337) && <p>Connected to {networkName}. Please switch to buildbear</p>}
+      {(connectToWallet && networkId == 8337) ?
     <HomeWrapper className='mwrap'>
 
       {/* Filter Section */}
@@ -126,10 +140,9 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
 
 
 
-// export async function getStaticProps() {
-  // const provider = new ethers.providers.JsonRpcProvider(
-  //   process.env.NEXT_PUBLIC_RPC_URL
-  // );
+  //export async function getStaticProps() {
+ 
+  
 
   // const camaignFactorycontract = new ethers.Contract(
   //   CAMPAIGN_FACTORY_DETAILS[chainId],
@@ -137,8 +150,11 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   //   provider
   // );
 
-  // const campaigns = await camaignFactorycontract.deployedCampaigns();
-  // console.log(campaigns); //TODO: this will be an array of address 
+// const campaigns = await camaignFactorycontract.deployedCampaigns();
+// console.log(campaigns);
+ //   } 
+ //   getStaticProps()
+    //TODO: this will be an array of address 
   // once you get all the campaigns
   // for each element of the campaign
   // get the boolean value of acceptingDonation

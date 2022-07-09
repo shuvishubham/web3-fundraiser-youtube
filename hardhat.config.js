@@ -17,8 +17,8 @@ module.exports = {
   networks: {
     hardhat: {},
     buildbear: {
-      url: "https://backend.buildbear.io/node/bold-bohr-2aa906",
-      accounts:["df57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e"],
+      url: "https://backend.buildbear.io/node/clever-williams-b356e4",
+      accounts:["331a3f5d6341c5d08e85b7c0535da803272d011c28b409a55ac9f0c065d329f3"],
     }
   }
 };
