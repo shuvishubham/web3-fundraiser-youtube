@@ -4,12 +4,11 @@ import Metamask from '../components/layout/components/Metamask';
 import { useState } from 'react';
 
 
-
 function MyApp({ Component, pageProps }) {
   const [connected, setConnected] = useState(true)
   return (
   <Layout>
-    {/* <Metamask /> */}
+    {/* <Metamask /> */} 
     {connected &&   <Component {...pageProps} />}
   
   </Layout>

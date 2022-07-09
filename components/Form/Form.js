@@ -7,6 +7,7 @@ import {ethers} from 'ethers';
 import {toast} from 'react-toastify';
 import CampaignFactory from '../../artifacts/contracts/CampaignFactory.sol/CampaignFactory.json'
 import CrowdfundImg from '../../assets/crowdfund-image.jpg'
+import { CAMPAIGN_FACTORY_DETAILS } from '../../constants/constants';
 
 const FormState = createContext();
 
@@ -56,7 +57,7 @@ const Form = () => {
           setLoading(true);  
     
           const contract = new ethers.Contract(
-            process.env.NEXT_PUBLIC_ADDRESS,
+            CAMPAIGN_FACTORY_DETAILS.address,
             CampaignFactory.abi,
             signer
           );

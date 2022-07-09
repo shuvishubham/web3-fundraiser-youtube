@@ -9,9 +9,13 @@ import Link from 'next/link'
 import Web3Modal from 'web3modal'
 import { providers } from "ethers";
 import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
+import { GetProps } from './GetStaticProps';
+
+
 
 export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [filter, setFilter] = useState(AllData);
+  const [address, setAddress] = useState({})
 
 
   let chainId;
@@ -36,6 +40,7 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
         const provider = await Web3ModalRef.current.connect();
         const Web3Provider = new providers.Web3Provider(provider);
         chainId = await Web3Provider.getNetwork();
+        
         var fetchChainId = chainId
         // if (chainId !== 8301) {
         //     alert('Use BuildBear Network')
@@ -44,6 +49,8 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
     
         if (needSigner) {
             const signer = Web3Provider.getSigner();
+            let address = await signer.getAddress();
+            setAddress(address);
             console.log(signer, 'signerrrrrrrr')
             return signer;
         }
@@ -86,19 +93,22 @@ networkId = getChainId.chainId;
         ethereum.on('chainChanged', (_chainId) => window.location.reload());
     }, [])
 
+
   return (
-    // <div></div>
+    <> 
+    
     <div>
       {(connectToWallet && networkId != 8337) && <p>Connected to {networkName}. Please switch to buildbear</p>}
+  
       {(connectToWallet && networkId == 8337) ?
+     <>
     <HomeWrapper className='mwrap'>
 
       {/* Filter Section */}
-    
+   
 
       {/* Cards Container */}
       <CardsWrapper className='wrap'>
-
       {/* Card */}
       {filter === undefined && <p>No campaign is created yet! Create one with Build Bear!</p>}
 
@@ -133,94 +143,19 @@ networkId = getChainId.chainId;
         {/* Card */}
 
       </CardsWrapper>
-    </HomeWrapper> : <button style={{alignItems: 'center', justifyContent: 'center', marginLeft: '44%', marginTop: '20%', border: 'none', backgroundColor: '#d0d0d0', padding: '16px 27px' , borderRadius: '10px', fontSize: '25px', cursor: 'pointer'}} onClick={connectWallet}>Connect to Wallet</button>}
+    </HomeWrapper>
+   <GetProps />
+  </>
+    : <button style={{alignItems: 'center', justifyContent: 'center', marginLeft: '44%', marginTop: '20%', border: 'none', backgroundColor: '#d0d0d0', padding: '16px 27px' , borderRadius: '10px', fontSize: '25px', cursor: 'pointer'}} onClick={connectWallet}>Connect to Wallet</button>}
     </div>
+ 
+    </>
   )
+
 }
 
 
 
-  //export async function getStaticProps() {
- 
-  
-
-  // const camaignFactorycontract = new ethers.Contract(
-  //   CAMPAIGN_FACTORY_DETAILS[chainId],
-  //   CampaignFactory.abi,
-  //   provider
-  // );
-
-// const campaigns = await camaignFactorycontract.deployedCampaigns();
-// console.log(campaigns);
- //   } 
- //   getStaticProps()
-    //TODO: this will be an array of address 
-  // once you get all the campaigns
-  // for each element of the campaign
-  // get the boolean value of acceptingDonation
-  // if acceptingDonation --> then it should show in the mainpage
-
-//   const getAllCampaigns = contract.filters.campaignCreated();
-//   const AllCampaigns = await contract.queryFilter(getAllCampaigns);
-//   const AllData = AllCampaigns.map((e) => {
-//     return {
-//       title: e.args.title,
-//       image: e.args.imgURI,
-//       owner: e.args.owner,
-//       timeStamp: parseInt(e.args.timestamp),
-//       amount: ethers.utils.formatEther(e.args.requiredAmount),
-//       address: e.args.campaignAddress
-//     }
-//   });
-
-//   const getHealthCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Health');
-//   const HealthCampaigns = await contract.queryFilter(getHealthCampaigns);
-//   const HealthData = HealthCampaigns.map((e) => {
-//     return {
-//       title: e.args.title,
-//       image: e.args.imgURI,
-//       owner: e.args.owner,
-//       timeStamp: parseInt(e.args.timestamp),
-//       amount: ethers.utils.formatEther(e.args.requiredAmount),
-//       address: e.args.campaignAddress
-//     }
-//   });
-
-//   const getEducationCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'education');
-//   const EducationCampaigns = await contract.queryFilter(getEducationCampaigns);
-//   const EducationData = EducationCampaigns.map((e) => {
-//     return {
-//       title: e.args.title,
-//       image: e.args.imgURI,
-//       owner: e.args.owner,
-//       timeStamp: parseInt(e.args.timestamp),
-//       amount: ethers.utils.formatEther(e.args.requiredAmount),
-//       address: e.args.campaignAddress
-//     }
-//   });
-
-//   const getAnimalCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Animal');
-//   const AnimalCampaigns = await contract.queryFilter(getAnimalCampaigns);
-//   const AnimalData = AnimalCampaigns.map((e) => {
-//     return {
-//       title: e.args.title,
-//       image: e.args.imgURI,
-//       owner: e.args.owner,
-//       timeStamp: parseInt(e.args.timestamp),
-//       amount: ethers.utils.formatEther(e.args.requiredAmount),
-//       address: e.args.campaignAddress
-//     }
-//   });
-
-//   return {
-//     props: {
-//       AllData,
-//       HealthData,
-//       EducationData,
-//       AnimalData
-//     }
-//   }
-// }
 const HomeWrapper = styled.div`
   display: flex;
   overflow-x: hidden;

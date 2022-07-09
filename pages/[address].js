@@ -176,10 +176,10 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps(context) {
-  const provider = new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_RPC_URL
-  );
+// export async function getStaticProps(context) {
+//   const provider = new ethers.providers.JsonRpcProvider(
+//     process.env.NEXT_PUBLIC_RPC_URL
+//   );
 
   const contract = new ethers.Contract(
     context.params.address,
@@ -223,7 +223,7 @@ export async function getStaticProps(context) {
   }
 
 
-}
+
 
 
 

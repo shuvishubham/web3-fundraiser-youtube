@@ -18,6 +18,7 @@ const networks = {
 };
 
 
+
 const Wallet = () => {
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState("");
