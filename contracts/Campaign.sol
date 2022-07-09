@@ -32,6 +32,7 @@ contract Campaign {
 
 
     function donate() public payable {
+        require(acceptingDonation);
         require(msg.value > 0,"Msg.value = 0");
         if (msg.value > requiredAmount - receivedAmount) revert TooHighDonation({
                 message: "Donation room left",
@@ -51,7 +52,7 @@ contract Campaign {
         emit withdrawn(receivedAmount);
     }
 
-    //@TODO: need to check why is the contract not receiving direct messages
+    //BUG: need to check why is the contract not receiving direct messages
     fallback() external payable {
         donate();
     }
