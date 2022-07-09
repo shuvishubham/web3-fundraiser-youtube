@@ -40,7 +40,7 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
     
         if (needSigner) {
             const signer = Web3Provider.getSigner();
-            // console.log(signer, 'signer')
+            console.log(signer, 'signerrrrrrrr')
             return signer;
         }
         return provider;
@@ -127,15 +127,22 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
 
 
 // export async function getStaticProps() {
-//   const provider = new ethers.providers.JsonRpcProvider(
-//     process.env.NEXT_PUBLIC_RPC_URL
-//   );
+  // const provider = new ethers.providers.JsonRpcProvider(
+  //   process.env.NEXT_PUBLIC_RPC_URL
+  // );
 
-//   const contract = new ethers.Contract(
-//     FACTORY_ADDRESS,
-//     CampaignFactory.abi,
-//     provider
-//   );
+  // const camaignFactorycontract = new ethers.Contract(
+  //   CAMPAIGN_FACTORY_DETAILS[chainId],
+  //   CampaignFactory.abi,
+  //   provider
+  // );
+
+  // const campaigns = await camaignFactorycontract.deployedCampaigns();
+  // console.log(campaigns); //TODO: this will be an array of address 
+  // once you get all the campaigns
+  // for each element of the campaign
+  // get the boolean value of acceptingDonation
+  // if acceptingDonation --> then it should show in the mainpage
 
 //   const getAllCampaigns = contract.filters.campaignCreated();
 //   const AllCampaigns = await contract.queryFilter(getAllCampaigns);

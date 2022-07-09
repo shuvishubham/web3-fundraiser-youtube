@@ -30,9 +30,7 @@ contract CampaignFactory {
             storyURI, 
             msg.sender
         );
-
         deployedCampaigns.push(address(newCampaign));
-
         emit campaignCreated(
             campaignTitle, 
             requiredCampaignAmount, 

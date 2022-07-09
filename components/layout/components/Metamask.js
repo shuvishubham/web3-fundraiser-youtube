@@ -28,7 +28,7 @@ const Metamask = () => {
         // }
     
         if (needSigner) {
-            const signer = Web3Provider.getSigner();
+            const signer = Web3Provider.getSigner(); //TODO: this is the signer
             // console.log(signer, 'signer')
             return signer;
         }
