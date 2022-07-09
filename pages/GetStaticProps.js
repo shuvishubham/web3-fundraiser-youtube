@@ -25,9 +25,9 @@
                 CampaignFactory.abi,
                 signer
               );
-              console.log(camaignFactorycontract, 'ye chal raha hai')
+              console.log(camaignFactorycontract)
               //TODO: deployedCampaign needs to be fixed
-              console.log(await camaignFactorycontract.deployedCampaigns(), 'campaigns');
+              console.log(await camaignFactorycontract.deployedCampaigns());
     
         } catch (err) {
             console.log(err) 
