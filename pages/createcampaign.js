@@ -5,7 +5,7 @@ import AdminContext from '../context/adminContext';
 
 
 
-const createcampaign = () => {
+const Createcampaign = () => {
   const { newSigner, setNewSigner, newAddress, setNewAddress, allCampaigns, setAllCampaigns, connectAccount, setConnectAccount,  fetchChainId, setFetchChainId  } = useContext(AdminContext)
   return (
     <>
@@ -14,4 +14,4 @@ const createcampaign = () => {
   )
 }
 
-export default createcampaign
+export default Createcampaign
