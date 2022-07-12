@@ -1,12 +1,10 @@
 import Form from '../components/Form/Form';
 
-
 const createcampaign = () => {
- 
   return (
-    <>
-   <Form />
-    </>
+    <div>
+      <Form />
+    </div>
   )
 }
 
