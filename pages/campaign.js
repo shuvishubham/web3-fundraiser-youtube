@@ -24,6 +24,7 @@ const Campaign = () => {
   const [donation, setDonation] = useState()
 
 
+  
 
    const contract = new ethers.Contract(
        newAddress,
@@ -115,7 +116,8 @@ const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
 , [])
     return (
         <>
-         <div className="campaign-container">
+       {newSigner !== undefined && <>
+        <div className="campaign-container">
            <div className="campaign-title">
              <div className="card">
                {/* <div className="campaign-key">
@@ -206,6 +208,7 @@ const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
 
 
          </div>
+       </>}
         </>
     )
 }
