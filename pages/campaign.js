@@ -26,6 +26,7 @@ const Campaign = () => {
 const [fetchSigner, setFetchSigner] = useState()
 const [buttonDisabled, setButtonDisabled] = useState();
 const [canDonate, setCanDonate] = useState(true)
+const [count, setCount] = useState(0)
 
 
  
@@ -44,7 +45,7 @@ const createCampaign = () => {
      return contract
     // return null
   } else {
-    console.log("Not defined")
+    console.log("Signer Not defined")
     return null;
   }
 }
@@ -63,13 +64,14 @@ const createCampaign = () => {
   setDonationAmount(donation)
  if (donationAmount !== undefined) {
  try {
-  await contract.donate({value: ethers.utils.parseEther(donationAmount)})
+ const transaction = await contract.donate({value: ethers.utils.parseEther(donationAmount)})
+ await transaction.wait()
+  setCount(count + 1)
  } catch (err) {
   setCanDonate(false)
   DonationDisabled()
- }
- }
- 
+ }}
+
  }
 
 const DonationDisabled = () => {
@@ -102,7 +104,7 @@ const DonationDisabled = () => {
         setRequiredAmount(requiredAmountData)
   
         const imageUrl = `https://ipfs.infura.io/ipfs/${imageData}`
-        console.log(imageUrl, 'imageurl')
+        // console.log(imageUrl, 'imageurl')
         setImageString(imageUrl)
   
         if (allCampaigns) {
@@ -121,7 +123,7 @@ const DonationDisabled = () => {
 
   
   const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
-        console.log(contract, "contract")
+        // console.log(contract, "contract")
         console.log(await contract.story(), "story")
        const storyIPFS = (fetch(storyUrlString).
         then(res => res.text())
@@ -134,7 +136,7 @@ const DonationDisabled = () => {
     }
   }
  
-, [newSigner])
+, [count])
     return (
         <>
        {newSigner !== undefined ? <>

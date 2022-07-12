@@ -41,7 +41,7 @@ const Metamask = () => {
         await getSignerorProvider();
         setConnectedWallet(true)
         setChainId(chainId)
-        console.log(chainId)
+        // console.log(chainId)
        } catch (err) {
         console.log(err)
        }

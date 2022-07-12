@@ -15,10 +15,10 @@ export default function Dashboard() {
   const [campaignsData, setCampaignsData] = useState([]);
 
 
-  const { newSigner, setNewSigner, newAddress, setNewAddress } = useContext(AdminContext)
+  const { newSigner, setNewSigner, newAddress, setNewAddress, allCampaigns, setAllCampaigns, connectAccount, setConnectAccount,  fetchChainId, setFetchChainId  } = useContext(AdminContext)
   
  
-  console.log(newSigner, "signer")
+  // console.log(newSigner, "signer")
 
   const stateChanger = (fetchAddress) => {
     setNewAddress(() => fetchAddress)
@@ -61,47 +61,50 @@ export default function Dashboard() {
   }, [])
 
   return (
- 
-    <HomeWrapper>
+    <>
+    {(connectAccount && fetchChainId.chainId == 8337) ?<HomeWrapper>
 
-      {/* Cards Container */}
-      <CardsWrapper>
+{/* Cards Container */}
+<CardsWrapper>
 
-      {/* Card */}
-    
-      {campaignsData.map((e) => {
-        return (
-          <Card key={e.title}>
-          <CardImg>
-            <Image 
-              alt="crowdfunding dapp"
-              layout='fill' 
-              src={"https://ipfs.infura.io/ipfs/" + e.image} 
-            />
-          </CardImg>
-          <Title>
-            {e.title}
-          </Title>
-          <CardData>
-            <Text>Owner</Text> 
-            <Text>{e.owner.slice(0,6)}...{e.owner.slice(39)}</Text>
-          </CardData>
-          <CardData>
-            <Text>Amount</Text> 
-            <Text>{e.amount} BB ETH</Text>
-          </CardData>
-         
-          <Link passHref href={'/campaign'}><Button onClick={()=> stateChanger(e.address)}>
-            Go to Campaign
-          </Button></Link>
-        </Card>
-        )
-      })}
+{/* Card */}
+
+{campaignsData.map((e) => {
+  return (
+    <Card key={e.title}>
+    <CardImg>
+      <Image 
+        alt="crowdfunding dapp"
+        layout='fill' 
+        src={"https://ipfs.infura.io/ipfs/" + e.image} 
+      />
+    </CardImg>
+    <Title>
+      {e.title}
+    </Title>
+    <CardData>
+      <Text>Owner</Text> 
+      <Text>{e.owner.slice(0,6)}...{e.owner.slice(39)}</Text>
+    </CardData>
+    <CardData>
+      <Text>Amount</Text> 
+      <Text>{e.amount} BB ETH</Text>
+    </CardData>
    
-        {/* Card */}
+    <Link passHref href={'/campaign'}><Button onClick={()=> stateChanger(e.address)}>
+      Go to Campaign
+    </Button></Link>
+  </Card>
+  )
+})}
 
-      </CardsWrapper>
-    </HomeWrapper>
+  {/* Card */}
+
+</CardsWrapper>
+</HomeWrapper>: <p style={{fontFamily: 'Poppins', textAlign: 'center', paddingTop: '50px'}}>Please make sure that you are connected to wallet</p>}
+    </>
+ 
+    
 
   )
 }

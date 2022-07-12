@@ -12,7 +12,7 @@ import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
 import { GetProps } from '../components/GetStaticProps';
 import AdminContext from '../context/adminContext';
 
-
+ 
 export default function Index({CampaignData, HealthData, EducationData,AnimalData}) {
 
   const { newSigner, setNewSigner, newAddress, setNewAddress, allCampaigns, setAllCampaigns, connectAccount, setConnectAccount,  fetchChainId, setFetchChainId  } = useContext(AdminContext)
@@ -72,12 +72,12 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
         setChainId(chainId);
         setFetchChainId(()=>chainId)
        
-        console.log(chainId)
+        // console.log(chainId)
        } catch (err) {
         console.log(err)
        }
     }
-    console.log(connectAccount, 'wallet')
+    // console.log(connectAccount, 'wallet')
 
     for (let [key, value] of Object.entries(CAMPAIGN_FACTORY_DETAILS)) {
       if (fetchChainId === null && console.log('connect to metamamsk'));

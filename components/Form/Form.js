@@ -37,7 +37,7 @@ const Form = () => {
 
     const ImageHandler = (e) => {
         setImage(e.target.files[0]);
-        console.log(e.target.files[0])
+        // console.log(e.target.files[0])
     }
     
 
@@ -77,7 +77,7 @@ const Form = () => {
             form.category,
             storyUrl
           );
-    console.log(campaignData, 'data')
+    // console.log(campaignData, 'data')
           await campaignData.wait();   
     
           setAddress(campaignData.to);
@@ -94,10 +94,10 @@ const Form = () => {
                         <TailSpin height={60} />
                     </Spinner> :
                 <Address>
-                    <h1 style={{fontFamily: 'Poppins'}}>Campaign Started Sucessfully!</h1>
-                    <h1 style={{fontFamily: 'Poppins'}}>{address}</h1>
+                    <h3 style={{fontFamily: 'Poppins'}}>Campaign Started Sucessfully!</h3>
+                    <h3 style={{fontFamily: 'Poppins'}}>{address}</h3>
                     <Button style={{fontFamily: 'Poppins'}}>
-                       <Link href="/campaign" style={{textDecoration: 'none', fontFamily: 'Poppins'}}> Go To Campaign</Link>
+                       <Link href="/" style={{textDecoration: 'none', fontFamily: 'Poppins', color: '#000'}}> Go To Campaign</Link>
                     </Button>
                 </Address>
                 :
