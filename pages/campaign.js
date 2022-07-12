@@ -22,14 +22,21 @@ const Campaign = () => {
   const [donationAmount, setDonationAmount] = useState()
   const [imageString, setImageString] = useState('https:ipfs.infura.io/ipfs/QmdikPXpXRZkrhMghXoDjy9cTnj9QNyTUm3fvpLCKKPAVu')
   const [donation, setDonation] = useState()
-  
+  const [fetchSigner, setFetchSigner] = useState(newSigner)
   
 
-   const contract = new ethers.Contract(
-       newAddress,
-        CampaignAbi.abi,
-        newSigner
-      );
+const createCampaign = () => {
+  if (fetchSigner !== undefined) {
+    const contract = new ethers.Contract(
+      newAddress,
+       CampaignAbi.abi,
+       fetchSigner
+     );
+     return contract
+  }
+}
+
+  const contract = createCampaign()
 
  const handleInput = (e) => {
   const donatevalue = e.target.value;
