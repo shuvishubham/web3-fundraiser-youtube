@@ -8,7 +8,7 @@ import {toast} from 'react-toastify';
 import CampaignFactory from '../../artifacts/contracts/CampaignFactory.sol/CampaignFactory.json'
 import CrowdfundImg from '../../assets/crowdfund-image.jpg'
 import { CAMPAIGN_FACTORY_DETAILS } from '../../constants/constants';
-
+import Link from 'next/link';
 const FormState = createContext();
 
 const Form = () => {
@@ -97,7 +97,7 @@ const Form = () => {
                     <h1 style={{fontFamily: 'Poppins'}}>Campaign Started Sucessfully!</h1>
                     <h1 style={{fontFamily: 'Poppins'}}>{address}</h1>
                     <Button style={{fontFamily: 'Poppins'}}>
-                       <a href="/campaign" style={{textDecoration: 'none', fontFamily: 'Poppins'}}> Go To Campaign</a>
+                       <Link href="/campaign" style={{textDecoration: 'none', fontFamily: 'Poppins'}}> Go To Campaign</Link>
                     </Button>
                 </Address>
                 :
