@@ -1,0 +1,77 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\aksha\\Downloads\\crowdfund-dapp\\contracts\\Campaign.sol": {
+      "lastModificationDate": 1657343695323,
+      "contentHash": "58b20f0be0ad8b0ddb240627096a0f45",
+      "sourceName": "contracts/Campaign.sol",
+      "solcConfig": {
+        "version": "0.8.10",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">0.8.0 <=0.9.0"
+      ],
+      "artifacts": [
+        "Campaign"
+      ]
+    },
+    "C:\\Users\\aksha\\Downloads\\crowdfund-dapp\\contracts\\CampaignFactory.sol": {
+      "lastModificationDate": 1657343695324,
+      "contentHash": "d1dc520fcd9e15307dae83cc98d6f3b4",
+      "sourceName": "contracts/CampaignFactory.sol",
+      "solcConfig": {
+        "version": "0.8.10",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Campaign.sol"
+      ],
+      "versionPragmas": [
+        ">0.8.0 <=0.9.0"
+      ],
+      "artifacts": [
+        "CampaignFactory"
+      ]
+    }
+  }
+}
