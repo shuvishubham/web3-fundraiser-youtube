@@ -22,8 +22,7 @@ const Campaign = () => {
   const [donationAmount, setDonationAmount] = useState()
   const [imageString, setImageString] = useState('https:ipfs.infura.io/ipfs/QmdikPXpXRZkrhMghXoDjy9cTnj9QNyTUm3fvpLCKKPAVu')
   const [donation, setDonation] = useState()
-
-
+  
   
 
    const contract = new ethers.Contract(
@@ -113,7 +112,7 @@ const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
     Request();
     }
  
-, [])
+, [newSigner])
     return (
         <>
        {newSigner !== undefined && <>
