@@ -112,7 +112,7 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
   return (
     <> 
     <div>
-      {(connectToWallet && networkId != 8337) && <p>Connected to {networkName}. Please switch to buildbear</p>}
+      {(connectToWallet && networkId != 8337) && <p style={{fontFamily: 'Poppins', margin: '200px 40% -15% 40%', fontSize: '20px'}}>Connected to {networkName}. Please switch to <b>BuildBear</b></p>}
   
       {(connectAccount && networkId == 8337) ?
      <>

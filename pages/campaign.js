@@ -6,7 +6,8 @@ import CampaignFactory from '../artifacts/contracts/CampaignFactory.sol/Campaign
 import CampaignAbi from '../artifacts/contracts/Campaign.sol/Campaign.json'
 import Image from "next/image";
 import { Button } from "@mui/material";
-
+import styled from 'styled-components';
+import moment from "moment";
 
 
 const Campaign = () => {
@@ -23,10 +24,10 @@ const Campaign = () => {
   const [imageString, setImageString] = useState('https:ipfs.infura.io/ipfs/QmdikPXpXRZkrhMghXoDjy9cTnj9QNyTUm3fvpLCKKPAVu')
   const [donation, setDonation] = useState()
 const [fetchSigner, setFetchSigner] = useState()
+const [buttonDisabled, setButtonDisabled] = useState();
 
 
  
-
 
 
 const createCampaign = () => {
@@ -67,6 +68,9 @@ const createCampaign = () => {
  await contract.withdraw()
  }
  
+ if (amount - requiredAmount == '0') {
+  console.log('no donation accepted now')
+ }
   useEffect(() => {
     try {
       const Request = async () => {
@@ -74,7 +78,6 @@ const createCampaign = () => {
         const imageData = await contract.image()
         var receivedAmountData = await contract.receivedAmount()
         const requiredAmountData =(await contract.receivedAmount()).toString()
-        console.log((await contract.receivedAmount()).toString(), "received amt")
         const ethValue = ethers.utils.formatEther(requiredAmountData);
   
   
@@ -93,40 +96,21 @@ const createCampaign = () => {
         setTitle(e.title)
         setOwner(e.owner)
         // setTimeStamp(e.timeStamp)
-        setTimeStamp(new Date(e.timeStamp * 1000).toLocaleString(), 'date')
+        const date = new Date(e.timeStamp * 1000).toLocaleString()
+        setTimeStamp(moment(date).fromNow())
         setAmount(e.amount)
       }
      
     }))
   }
+
+  
   const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
         console.log(contract, "contract")
         console.log(await contract.story(), "story")
        const storyIPFS = (fetch(storyUrlString).
         then(res => res.text())
         .then(data => setStory(data)))
-  
-  
-       
-  
-        // console.log('IPFS', story)
-        // console.log((await contract.requiredAmount()).toString(), "req amt")
-        // console.log((await contract.donate({value: ethers.utils.parseEther("1")})), 'donate')
-  
-      //   const getAllCampaigns = contract.filters.campaignCreated(null, null, newAddress);
-      //   const AllCampaigns = await contract.queryFilter(getAllCampaigns);
-      //   const AllData = AllCampaigns.map((e) => {
-      //   return {
-      //     title: e.args.title,
-      //     image: e.args.imgURI,
-      //     owner: e.args.owner,
-      //     timeStamp: parseInt(e.args.timestamp),
-      //     amount: ethers.utils.formatEther(e.args.requiredAmount),
-      //     address: e.args.campaignAddress
-      //   }
-      //   })  
-      //   setCampaignsData(AllData)
-      //   console.log('dashboard', campaignsData)
       }
       Request();
      
@@ -142,60 +126,35 @@ const createCampaign = () => {
         <div className="campaign-container">
            <div className="campaign-title">
              <div className="card">
-               {/* <div className="campaign-key">
-                  Title
-               </div> */}
-               <div className="campaign-value" style={{marginBottom: '20px'}}>
-                  {title}
+               <div className="campaign-value campaign-name" style={{marginBottom: '0px'}}>
+                 <Text> {title}</Text>
                </div>
             </div>
           </div>
           <div className="campaign-title">
              <div className="card">
-               {/* <div className="campaign-key">
-                 
-               </div> */}
                <div className="campaign-value" style={{fontSize: '15px', marginBottom: '60px'}}>
                  <i> {story}</i>
                </div>
             </div>
           </div>
 
-          {/* <div className="campaign-title">
-             <div className="card"> */}
-               {/* <div className="campaign-key">
-                  Description
-               </div> */}
-               {/* <div className="campaign-value">
-               <Image
-                 src={imageString}
-                 alt="crowdfunding dapp"
-                 layout="fill"
-                 className="campaign-image"
-           />
-               </div>
-            </div>
-          </div> */}
-
-           <div className="campaign-title">
+           {/* <div className="campaign-title">
               <div className="card">
-                {/* <div className="campaign-key">
-                 
-                </div> */}
-                <div className="campaign-value" style={{marginBottom: '40px'}}>
-                Created on: <span style={{marginLeft: '10px'}}>{timeStamp}</span>
+                <div className="campaign-value" style={{marginBottom: '40px', fontSize: '20px'}}>
+                <u>Created <span style={{fontSize: '20px'}}>{timeStamp}</span></u>
                 </div>
              </div>
-           </div>
+           </div> */}
 
-           <div style={{display: 'flex', justifyContent: 'space-around'}}>
+           <div style={{display: 'flex', justifyContent: 'space-around', maxWidth: '900px', margin: 'auto'}}>
            <div className="campaign-title">
               <div className="card">
                 <div className="campaign-key">
                 <span style={{marginRight: '10px'}}>Required Fund</span>
                 </div>
                 <div className="campaign-value">
-                   {amount} BB ETH
+                  <Value> {amount} BB ETH</Value>
                 </div>
              </div>
            </div>
@@ -206,7 +165,7 @@ const createCampaign = () => {
                 <span style={{marginRight: '10px'}}> Received Fund </span>
                 </div>
                 <div className="campaign-value">
-                  {receivedAmount} BB ETH
+                  <Value>{receivedAmount} BB ETH</Value>
                 </div>
              </div>
            </div>
@@ -217,9 +176,9 @@ const createCampaign = () => {
           <form action="" onSubmit={handleSubmit}>
            <div style={{marginTop: '100px'}}>
             
-             <input type="text" name="donation" placeholder="Enter donation amount" style={{padding: '10px 20px', fontSize: '15px', border: 'none', backgroundColor: '#e7e7e7'}} id="donation" value={donation} onChange={handleInput} />
+             <input type="text" name="donation" placeholder="Enter donation amount" style={{padding: '15px 50px', fontSize: '15px', border: 'none', backgroundColor: '#e7e7e7', outline: 'none'}} id="donation" value={donation} onChange={handleInput} />
 
-             <button type="submit" style={{padding: '11px', backgroundColor: '#08AEEA', border: 'none'}}>Donate</button>
+             <button type="submit" style={{padding: '15px', backgroundColor: '#08AEEA', border: 'none', cursor: 'pointer'}} buttonDisabled><b>Donate</b></button>
            </div>
           </form>
 
@@ -236,3 +195,19 @@ const createCampaign = () => {
 }
 
 export default Campaign
+
+const Text = styled.p`
+
+  background-color: ${(props) => props.active ? props.theme.bgSubDiv : props.theme.bgDiv };
+  padding: 7px 16px;
+  border-radius: 10px;
+  font-size: 28px;
+
+`
+const Value = styled.p`
+
+  background-color: ${(props) => props.active ? props.theme.bgSubDiv : props.theme.bgDiv };
+  padding: 7px 16px;
+  border-radius: 10px;
+  margin-top: -10px;
+`

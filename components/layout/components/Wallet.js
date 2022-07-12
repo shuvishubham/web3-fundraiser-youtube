@@ -1,60 +1,26 @@
 import styled from "styled-components";
 import { ethers } from "ethers";
-import { useState } from "react";
-
-
-const networks = {
-  buildbear: {
-    chainId: `0x${Number(8301).toString(16)}`,
-    chainName: "BuildBear Bold Bohr 2aa906",
-    nativeCurrency: {
-      name: "BB ETH",
-      symbol: "BB ETH",
-      decimals: 18,
-    },
-    rpcUrls: ["https://backend.buildbear.io/node/bold-bohr-2aa906"],
-    blockExplorerUrls: ["https://explorer.buildbear.io/"],
-  },
-};
+import { useContext, useState } from "react";
+import AdminContext from "../../../context/adminContext";
 
 
 
 const Wallet = () => {
-  const [address, setAddress] = useState("");
-  const [balance, setBalance] = useState("");
-
-
-  const connectWallet = async () => {
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-  
-    if (provider.network !== "matic") {
-      await window.ethereum.request({
-        method: "wallet_addEthereumChain",
-        params: [
-          {
-            ...networks["buildbear"],
-          },
-        ],
-      });
-    } 
-    
  
-      const account = provider.getSigner();
-      console.log(account, 'acc')
-      const Address = await account.getAddress();
-      setAddress(Address);
-      const Balance = ethers.utils.formatEther(await account.getBalance());
-      setBalance(Balance);
+  const { connectAccount, setConnectAccount, newSigner, setNewSigner  } = useContext(AdminContext);
     
-  };
+ return (
+  <>
+  {/* {connectAccount && <>
+    <ConnectWalletWrapper>
+  <Balance>{balance.slice(0,4)} BB ETH</Balance> }
+   <Address>{address.slice(0,6)}...{address.slice(39)}</Address>
+</ConnectWalletWrapper>
+  </>} */}
+  </>
+ )
 
-  return (
-    <ConnectWalletWrapper onClick={connectWallet}>
-      {balance == '' ? <Balance></Balance> : <Balance>{balance.slice(0,4)} BB ETH</Balance> }
-      {address == '' ? "" : <Address>{address.slice(0,6)}...{address.slice(39)}</Address>}
-    </ConnectWalletWrapper>
-  );
+  
 };
 
 const ConnectWalletWrapper = styled.div`

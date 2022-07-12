@@ -8,7 +8,7 @@ const HeaderNav = () => {
 
   return (
     <HeaderNavWrapper>
-      <Link passHref href={'/'}><HeaderNavLinks active={Router.pathname == "/" ? true : false} >
+      <Link passHref href={'/'}><HeaderNavLinks active={Router.pathname == "/" ? true : false}>
         Campaigns
       </HeaderNavLinks></Link>
       <Link passHref href={'/createcampaign'}><HeaderNavLinks active={Router.pathname == "/createcampaign" ? true : false} >

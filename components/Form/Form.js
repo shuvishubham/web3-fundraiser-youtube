@@ -94,10 +94,10 @@ const Form = () => {
                         <TailSpin height={60} />
                     </Spinner> :
                 <Address>
-                    <h1>Campaign Started Sucessfully!</h1>
-                    <h1>{address}</h1>
-                    <Button>
-                        Go To Campaign
+                    <h1 style={{fontFamily: 'Poppins'}}>Campaign Started Sucessfully!</h1>
+                    <h1 style={{fontFamily: 'Poppins'}}>{address}</h1>
+                    <Button style={{fontFamily: 'Poppins'}}>
+                       <a href="/campaign" style={{textDecoration: 'none', fontFamily: 'Poppins'}}> Go To Campaign</a>
                     </Button>
                 </Address>
                 :
@@ -155,7 +155,7 @@ const Button = styled.button`
 
   border:none;
   background-color: #08AEEA;
-background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+background-color:#08AEEA;
 
   border-radius:20px;
   margin-top:30px ;
