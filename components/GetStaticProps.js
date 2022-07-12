@@ -10,7 +10,7 @@
   import Web3Modal from 'web3modal'
   import { providers } from "ethers";
   import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
-import AdminContext from '../pages/adminContext';
+import AdminContext from '../context/adminContext';
   
 
  export const GetProps = (props) => {

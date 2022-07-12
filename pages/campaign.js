@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import React, { useContext, useState, useEffect } from "react";
 import { CAMPAIGN_FACTORY_DETAILS } from "../constants/constants";
-import AdminContext from "./adminContext";
+import AdminContext from "../context/adminContext";
 import CampaignFactory from '../artifacts/contracts/CampaignFactory.sol/CampaignFactory.json'
 import CampaignAbi from '../artifacts/contracts/Campaign.sol/Campaign.json'
 import Image from "next/image";

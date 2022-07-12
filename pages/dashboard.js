@@ -9,7 +9,7 @@ import CampaignFactory from '../artifacts/contracts/CampaignFactory.sol/Campaign
 import { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
-import AdminContext from './adminContext';
+import AdminContext from '../context/adminContext';
 
 export default function Dashboard() {
   const [campaignsData, setCampaignsData] = useState([]);

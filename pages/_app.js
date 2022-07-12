@@ -2,7 +2,7 @@ import Layout from '../components/layout/Layout';
 import '../style/global.css'
 import Metamask from '../components/layout/components/Metamask';
 import { useState } from 'react';
-import AdminContext, { SignerProvider } from './adminContext';
+import AdminContext, { SignerProvider } from '../context/adminContext';
 
 
 

@@ -10,7 +10,7 @@ import Web3Modal, { local } from 'web3modal'
 import { providers } from "ethers";
 import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
 import { GetProps } from '../components/GetStaticProps';
-import AdminContext from './adminContext';
+import AdminContext from '../context/adminContext';
 
 
 export default function Index({CampaignData, HealthData, EducationData,AnimalData}) {
