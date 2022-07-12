@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Button } from "@mui/material";
 import styled from 'styled-components';
 import moment from "moment";
-
+import { Modal, Box, Typography } from '@mui/material';
 
 const Campaign = () => {
   const { newSigner, setNewSigner, newAddress, setNewAddress, allCampaigns, setAllCampaigns } = useContext(AdminContext)
@@ -25,6 +25,7 @@ const Campaign = () => {
   const [donation, setDonation] = useState()
 const [fetchSigner, setFetchSigner] = useState()
 const [buttonDisabled, setButtonDisabled] = useState();
+const [canDonate, setCanDonate] = useState(true)
 
 
  
@@ -48,6 +49,8 @@ const createCampaign = () => {
   }
 }
 
+
+
   const contract = createCampaign()
 
  const handleInput = (e) => {
@@ -59,13 +62,25 @@ const createCampaign = () => {
   e.preventDefault();
   setDonationAmount(donation)
  if (donationAmount !== undefined) {
+ try {
   await contract.donate({value: ethers.utils.parseEther(donationAmount)})
+ } catch (err) {
+  setCanDonate(false)
+  DonationDisabled()
+ }
  }
  
  }
 
+const DonationDisabled = () => {
+  window.alert('Cannot donate to the Campaign')
+}
  const onWithdrawHandler = async () => {
- await contract.withdraw()
+ try {
+  await contract.withdraw()
+ } catch (err) {
+  window.alert('You cannot withdraw this fund. Make sure that you are the owner of this campaign ')
+ }
  }
  
  if (amount - requiredAmount == '0') {

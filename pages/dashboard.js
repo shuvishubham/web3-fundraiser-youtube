@@ -15,11 +15,14 @@ export default function Dashboard() {
   const [campaignsData, setCampaignsData] = useState([]);
 
 
-  const { newSigner, setNewSigner } = useContext(AdminContext)
+  const { newSigner, setNewSigner, newAddress, setNewAddress } = useContext(AdminContext)
   
  
   console.log(newSigner, "signer")
 
+  const stateChanger = (fetchAddress) => {
+    setNewAddress(() => fetchAddress)
+  }
   useEffect(() => {
     const Request = async () => {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -37,6 +40,8 @@ export default function Dashboard() {
         signer
       );
       
+    
+     
   
       const getAllCampaigns = contract.filters.campaignCreated(null, null, Address);
       const AllCampaigns = await contract.queryFilter(getAllCampaigns);
@@ -86,7 +91,7 @@ export default function Dashboard() {
             <Text>{e.amount} BB ETH</Text>
           </CardData>
          
-          <Link passHref href={'/dash'}><Button>
+          <Link passHref href={'/campaign'}><Button onClick={()=> stateChanger(e.address)}>
             Go to Campaign
           </Button></Link>
         </Card>
