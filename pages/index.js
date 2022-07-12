@@ -4,18 +4,30 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Image from 'next/image';
 import { ethers } from 'ethers';
 import CampaignFactory from '../artifacts/contracts/CampaignFactory.sol/CampaignFactory.json'
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import Link from 'next/link'
-import Web3Modal from 'web3modal'
+import Web3Modal, { local } from 'web3modal'
 import { providers } from "ethers";
 import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
 import { GetProps } from './GetStaticProps';
+import AdminContext from './adminContext';
+import Detail from './addr';
 
 
+export default function Index({CampaignData, HealthData, EducationData,AnimalData}) {
 
-export default function Index({AllData, HealthData, EducationData,AnimalData}) {
-  const [filter, setFilter] = useState(AllData);
+  const { newSigner, setNewSigner, newAddress, setNewAddress, allCampaigns, setAllCampaigns, connectAccount, setConnectAccount  } = useContext(AdminContext)
+  const [filter, setFilter] = useState();
+  const [campaign, setCampaign] = useState(false)
+ 
+  // console.log(filter, "data")
   const [address, setAddress] = useState({})
+  const [signer, setSigner] = useState()
+
+  const getAllData = async (campaign) => {
+    setFilter(campaign)
+  
+        }
 
 
   let chainId;
@@ -23,18 +35,10 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   let networkName;
     const [connectToWallet, setConnectedWallet] = useState(false)
     const [getChainId, setChainId] = useState(null);
-   
+
+  
  
-    // const providerOptions= {
-    //     walletconnect: {
-    //         options: {
-    //             rpc: {
-    //                 8301: 'https://backend.buildbear.io/node/bold-bohr-2aa906'
-    //             },
-    //             chainId: 8301
-    //         }
-    //     }
-    // }
+  
     const Web3ModalRef = useRef();
     const getSignerorProvider = async (needSigner = true) => {
         const provider = await Web3ModalRef.current.connect();
@@ -46,30 +50,34 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
         //     alert('Use BuildBear Network')
         //     throw new Error('Change network to BuildBear');
         // }
+
     
         if (needSigner) {
             const signer = Web3Provider.getSigner();
+            setNewSigner(()=>signer)
             let address = await signer.getAddress();
             setAddress(address);
-            console.log(signer, 'signerrrrrrrr')
+            setSigner(signer)
+           
             return signer;
         }
         return provider;
     }
-    
-
-
-
+    // console.log(allCampaigns, 'all')
     const connectWallet = async () => {
        try {
         await getSignerorProvider();
         setConnectedWallet(true);
+        const walletconnect = true
+        setConnectAccount(()=>walletconnect)
         setChainId(chainId);
+       
         console.log(chainId)
        } catch (err) {
         console.log(err)
        }
     }
+    console.log(connectAccount, 'wallet')
 
     for (let [key, value] of Object.entries(CAMPAIGN_FACTORY_DETAILS)) {
       if (getChainId === null && console.log('connect to metamamsk'));
@@ -79,33 +87,37 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
           networkId = getChainId.chainId;
         }
         else if (key != getChainId.chainId) {
-console.log(getChainId.name)
-networkName = getChainId.name;
-networkId = getChainId.chainId;
+        // console.log(getChainId.name)
+        networkName = getChainId.name;
+        networkId = getChainId.chainId;
         }
       }
     }
+
+    const stateChanger = (fetchAddress) => {
+      setNewAddress(() => fetchAddress)
+    }
    
-  
     useEffect(() => {
         Web3ModalRef.current = new Web3Modal({        
         })
         ethereum.on('chainChanged', (_chainId) => window.location.reload());
+        getAllData()
+       
     }, [])
 
+    if (filter !== undefined) {
+      setAllCampaigns(()=>filter)
+    }
 
   return (
     <> 
-    
     <div>
       {(connectToWallet && networkId != 8337) && <p>Connected to {networkName}. Please switch to buildbear</p>}
   
-      {(connectToWallet && networkId == 8337) ?
+      {(connectAccount && networkId == 8337) ?
      <>
     <HomeWrapper className='mwrap'>
-
-      {/* Filter Section */}
-   
 
       {/* Cards Container */}
       <CardsWrapper className='wrap'>
@@ -134,9 +146,12 @@ networkId = getChainId.chainId;
             <Text>{e.amount} BB ETH</Text>
           </CardData>
          
-          <Link passHref href={'/' + e.address} ><Button>
-            Go to Campaign
-          </Button></Link>
+         
+         <Link href="/campaign">
+         <Button onClick={() => stateChanger(e.address)}>
+           Go to Campaign
+          </Button>
+         </Link>
         </Card>
         )
       })}
@@ -144,7 +159,11 @@ networkId = getChainId.chainId;
 
       </CardsWrapper>
     </HomeWrapper>
-   <GetProps />
+   <GetProps signer={signer} getAllData={getAllData} />
+   {/* <Detail /> */}
+
+   
+   
   </>
     : <button style={{alignItems: 'center', justifyContent: 'center', marginLeft: '44%', marginTop: '20%', border: 'none', backgroundColor: '#d0d0d0', padding: '16px 27px' , borderRadius: '10px', fontSize: '25px', cursor: 'pointer'}} onClick={connectWallet}>Connect to Wallet</button>}
     </div>

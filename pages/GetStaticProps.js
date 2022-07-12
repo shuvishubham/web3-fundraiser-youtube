@@ -5,44 +5,110 @@
   import Image from 'next/image';
   import { ethers } from 'ethers';
   import CampaignFactory from '../artifacts/contracts/CampaignFactory.sol/CampaignFactory.json'
-  import { useState, useRef, useEffect } from 'react';
+  import { useState, useRef, useEffect, useContext } from 'react';
   import Link from 'next/link'
   import Web3Modal from 'web3modal'
   import { providers } from "ethers";
   import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
+import AdminContext from './adminContext';
   
- 
+
  export const GetProps = (props) => {
+  const { newSigner, setNewSigner, newAddress, setNewAddress } = useContext(AdminContext)
+
+  const [CampaignData, setCampaignData] = useState()
+  const [fetchCampaign, setFetchCampaign] = useState()
+  const [haveCampaign, setHaveCampaign] = useState(false)
+const [address, setAddress] = useState()
+const [title, setTitle] = useState()
+const [campaign, setCampaign] = useState(false)
+const [owner, setOwner] = useState(false)
+const [timeStamp, setTimeStamp] = useState(false)
+const [amount, setAmount] = useState(false)
+const [addr, setAddr] = useState(false)
+ 
  
     async function campaignProps () {
-        try {
-            const provider = new ethers.providers.JsonRpcProvider();
-            const signer = provider.getSigner(props.address)
-         
-            console.log(CAMPAIGN_FACTORY_DETAILS.address, 'address')
+  
             const camaignFactorycontract = new ethers.Contract(
                 CAMPAIGN_FACTORY_DETAILS.address,
                 CampaignFactory.abi,
-                signer
+                props.signer
               );
-              console.log(camaignFactorycontract)
-              //TODO: deployedCampaign needs to be fixed
-              console.log(await camaignFactorycontract.deployedCampaigns());
-    
-        } catch (err) {
-            console.log(err) 
-        }
+
+             
+             
+           
+              const getAllCampaigns = camaignFactorycontract.filters.campaignCreated();
+              const AllCampaigns = await camaignFactorycontract.queryFilter(getAllCampaigns);
+              setCampaign(true)
+              const AllData = AllCampaigns.map((e) => {
+               if (e.address == newAddress) {
+                setAddress(e.args.campaignAddress)
+                setTitle(e.args.title)
+                setOwner(e.args.owner)
+                setTimeStamp(e.args.timeStamp)
+                setAmount(e.args.amount)
+                setAddr(e.args.address)
+               }
+                    return {
+                      title: e.args.title,
+                      image: e.args.imgURI,
+                      owner: e.args.owner,
+                      timeStamp: parseInt(e.args.timestamp),
+                      amount: ethers.utils.formatEther(e.args.requiredAmount),
+                      address: e.args.campaignAddress
+
+                    }
+                  });
+              setCampaignData(AllData)
+              setFetchCampaign(AllData)
+              setHaveCampaign(true)
+
+
+              
     
      
     }
     campaignProps()
-   
 
+    // const renderCampaign = (address, title, owner, timeStamp, amount, addr) => {
+    //   if (campaign) {
+    //  return(
+    //   <>
+    //   <p>New Campaign</p>
+    //   <p>{address} </p>
+    //   <p>{title} </p>
+    //   <p>{owner} </p>
+    //   <p>{timeStamp} </p>
+    //   <p>{amount} </p>
+    //   <p>{addr} </p>
+    //  </>
+    //  )
+    //   }
+    // }
+
+
+const sendCampaign = async () => {
+   props.getAllData(fetchCampaign)
+}
  
-  return (
-    <>
-    </>
-  )
+
+useEffect(() => {
+sendCampaign()
+}, [haveCampaign])
+
+
+    return (
+      <>
+      {/* {renderCampaign(address, title, owner, timeStamp, amount, addr)} */}
+
+      {/* <button onClick={() => {
+        props.getAllData(fetchCampaign)
+      }}>print</button> */}
+      {/* {()=> props.getAllData(fetchCampaign)()} */}
+      </>
+    )
   }
 
 // const campaigns = await camaignFactorycontract.deployedCampaigns();

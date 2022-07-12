@@ -45,14 +45,13 @@ contract Campaign {
         emit donated(msg.sender, msg.value, block.timestamp);
     }
 
-    function withdraw() public payable {
+    function withdraw() public {
         require(!acceptingDonation, "Campaign still not over");
         require(msg.sender == owner, "Only the owner of the campaign can withdraw");
         owner.transfer(receivedAmount);
         emit withdrawn(receivedAmount);
     }
 
-    //BUG: need to check why is the contract not receiving direct messages
     fallback() external payable {
         donate();
     }

@@ -2,8 +2,11 @@ import styled from "styled-components";
 import Image from "next/image";
 import {ethers} from 'ethers';
 import CampaignFactory from '../artifacts/contracts/CampaignFactory.sol/CampaignFactory.json'
-import Campaign from '../artifacts/contracts/Campaign.sol/Campaign.json'
-import { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
+import {SIGNER} from './index'
+import AdminContext from "./adminContext";
+
 
 
 export default function Detail({Data, DonationsData}) {
@@ -11,25 +14,29 @@ export default function Detail({Data, DonationsData}) {
   const [story, setStory] = useState('');
   const [amount, setAmount] = useState();
   const [change, setChange] = useState(false);
+  const [newSigner, setSigner] = useState()
+  
 
   useEffect(() => {
     const Request = async () => {
       let storyData;
+      const { newSigner, setNewSigner } = useContext(AdminContext)
+  
+ 
+      // console.log(newSigner, "signer")
       
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       const Web3provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = Web3provider.getSigner();
+      setSigner(props.signer)
       const Address = await signer.getAddress();
-
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.NEXT_PUBLIC_RPC_URL
-      );
     
       const contract = new ethers.Contract(
-        Data.address,
-        Campaign.abi,
-        provider
+        CAMPAIGN_FACTORY_DETAILS.address,
+        CampaignFactory.abi,
+        newSigner
       );
+
 
       fetch('https://ipfs.infura.io/ipfs/' + Data.storyUrl)
             .then(res => res.text()).then(data => storyData = data);
@@ -57,7 +64,9 @@ export default function Detail({Data, DonationsData}) {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      const contract = new ethers.Contract(Data.address, Campaign.abi, signer);
+      
+      const contract = new ethers.Contract(CAMPAIGN_FACTORY_DETAILS.address, CampaignFactory.abi, newSigner);
+      
       const transaction = await contract.donate({value: ethers.utils.parseEther(amount)});
       await transaction.wait();
 
@@ -70,22 +79,8 @@ export default function Detail({Data, DonationsData}) {
 
   }
 
-  const WithdrawFunds = async () => {
-    const withdrawAmt = Data.receivedAmount;
-    try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(Data.address, Campaign.abi, signer);
-      const transaction = await contract.withdraw({value: ethers.utils.parseEther(withdrawAmt)});
-      await transaction.wait();
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
- 
   return (
+    <>
     <DetailWrapper>
       <LeftContainer>
         <ImageSection>
@@ -107,7 +102,6 @@ export default function Detail({Data, DonationsData}) {
           <Input value={amount} onChange={(e) => setAmount(e.target.value)} type="number" placeholder="Enter Amount To Donate" />
           <Donate onClick={DonateFunds}>Donate</Donate>
         </DonateSection>
-        <button onClick={WithdrawFunds}>Withdraw</button>
         <FundsData>
           <Funds>
             <FundText>Required Amount</FundText>
@@ -138,7 +132,7 @@ export default function Detail({Data, DonationsData}) {
               return (
                 <Donation key={e.timestamp}>
                 <DonationData>{e.donar.slice(0,6)}...{e.donar.slice(39)}</DonationData>
-                <DonationData>{e.amount} BB ETH</DonationData>
+                <DonationData>{e.amount} Matic</DonationData>
                 <DonationData>{new Date(e.timestamp * 1000).toLocaleString()}</DonationData>
               </Donation>
               )
@@ -148,20 +142,26 @@ export default function Detail({Data, DonationsData}) {
         </Donated>
       </RightContainer>
     </DetailWrapper>
+ 
+    </>
   );
+}
+const getSigner = async () => {
+  const { newSigner } = await useContext(AdminContext)
+  console.log(newSigner, "signer")
+  return newSigner
 }
 
 
-export async function getStaticPaths() {
-  const provider = new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_RPC_URL
+export async function getStaticPaths(props) {
+const newSigner = getSigner()
+console.log('newsigner', newSigner)
+  const contract = new ethers.Contract(
+    CAMPAIGN_FACTORY_DETAILS.address,
+    CampaignFactory.abi,
+    newSigner
   );
 
-  const contract = new ethers.Contract(
-    process.env.NEXT_PUBLIC_ADDRESS,
-    CampaignFactory.abi,
-    provider
-  );
 
   const getAllCampaigns = contract.filters.campaignCreated();
   const AllCampaigns = await contract.queryFilter(getAllCampaigns);
@@ -176,15 +176,15 @@ export async function getStaticPaths() {
   }
 }
 
-// export async function getStaticProps(context) {
-//   const provider = new ethers.providers.JsonRpcProvider(
-//     process.env.NEXT_PUBLIC_RPC_URL
-//   );
+
+export async function getStaticProps(context) {
+ 
+  const { newSigner, setNewSigner } = useContext(AdminContext)
 
   const contract = new ethers.Contract(
-    context.params.address,
-    Campaign.abi,
-    provider
+    CAMPAIGN_FACTORY_DETAILS.address,
+    CampaignFactory.abi,
+    newSigner
   );
 
   const title = await contract.title();
@@ -223,7 +223,7 @@ export async function getStaticPaths() {
   }
 
 
-
+}
 
 
 

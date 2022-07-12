@@ -2,16 +2,19 @@ import Layout from '../components/layout/Layout';
 import '../style/global.css'
 import Metamask from '../components/layout/components/Metamask';
 import { useState } from 'react';
+import AdminContext, { SignerProvider } from './adminContext';
+
 
 
 function MyApp({ Component, pageProps }) {
   const [connected, setConnected] = useState(true)
   return (
-  <Layout>
-    {/* <Metamask /> */} 
-    {connected &&   <Component {...pageProps} />}
-  
-  </Layout>
+    <SignerProvider>
+      <Layout>
+         {connected &&   <Component {...pageProps} />}
+      </Layout>
+    </SignerProvider>
+ 
   )
 }
 

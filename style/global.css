@@ -1,3 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Praise&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Arsenal&family=Thasadith:ital@1&display=swap");
+
+.campaign-container {
+    font-family: "Poppins";
+    margin: 50px;
+}
+
+.campaign-title {
+    font-size: 25px;
+}
+
+.campaign-image {
+  min-width: 200px !important;
+  min-height: 200px !important;
+  
+
+}
+
+.card {
+    display: flex;
+   
+}
+.campaign-value {
+    margin: 0 20px;
+}
