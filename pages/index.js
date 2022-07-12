@@ -9,9 +9,8 @@ import Link from 'next/link'
 import Web3Modal, { local } from 'web3modal'
 import { providers } from "ethers";
 import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
-import { GetProps } from './GetStaticProps';
+import { GetProps } from '../components/GetStaticProps';
 import AdminContext from './adminContext';
-import Detail from './addr';
 
 
 export default function Index({CampaignData, HealthData, EducationData,AnimalData}) {
