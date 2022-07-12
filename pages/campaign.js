@@ -22,17 +22,28 @@ const Campaign = () => {
   const [donationAmount, setDonationAmount] = useState()
   const [imageString, setImageString] = useState('https:ipfs.infura.io/ipfs/QmdikPXpXRZkrhMghXoDjy9cTnj9QNyTUm3fvpLCKKPAVu')
   const [donation, setDonation] = useState()
-  const [fetchSigner, setFetchSigner] = useState(newSigner)
-  
+const [fetchSigner, setFetchSigner] = useState()
+
+
+ 
+
+
 
 const createCampaign = () => {
-  if (fetchSigner !== undefined) {
+  if (newSigner != undefined || null) {
+  //  const  address = "0x8ba1f109551bD432803012645Ac136ddd64DBA72"
+  //  const signer = new ethers.VoidSigner(address, new ethers.providers.JsonRpcProvider('https://backend.buildbear.io/node/clever-williams-b356e4'))
+  
     const contract = new ethers.Contract(
       newAddress,
        CampaignAbi.abi,
-       fetchSigner
+       newSigner
      );
      return contract
+    // return null
+  } else {
+    console.log("Not defined")
+    return null;
   }
 }
 
@@ -57,72 +68,77 @@ const createCampaign = () => {
  }
  
   useEffect(() => {
-    const Request = async () => {
-      const storyData = await contract.story()
-      const imageData = await contract.image()
-      var receivedAmountData = await contract.receivedAmount()
-      const requiredAmountData =(await contract.receivedAmount()).toString()
-      console.log((await contract.receivedAmount()).toString(), "received amt")
-      const ethValue = ethers.utils.formatEther(requiredAmountData);
-
-
-      setStory(storyData)
-      setImage(imageData)
-      setReceivedAmount(ethValue)
-      setRequiredAmount(requiredAmountData)
-
-      const imageUrl = `https://ipfs.infura.io/ipfs/${imageData}`
-      console.log(imageUrl, 'imageurl')
-      setImageString(imageUrl)
-
-      if (allCampaigns) {
-      (allCampaigns.map((e) => {
-      if(e.address == newAddress) {
-      setTitle(e.title)
-      setOwner(e.owner)
-      // setTimeStamp(e.timeStamp)
-      setTimeStamp(new Date(e.timeStamp * 1000).toLocaleString(), 'date')
-      setAmount(e.amount)
-    }
-   
-  }))
-}
-const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
-      console.log(contract, "contract")
-      console.log(await contract.story(), "story")
-     const storyIPFS = (fetch(storyUrlString).
-      then(res => res.text())
-      .then(data => setStory(data)))
-
-
+    try {
+      const Request = async () => {
+        const storyData = await contract.story()
+        const imageData = await contract.image()
+        var receivedAmountData = await contract.receivedAmount()
+        const requiredAmountData =(await contract.receivedAmount()).toString()
+        console.log((await contract.receivedAmount()).toString(), "received amt")
+        const ethValue = ethers.utils.formatEther(requiredAmountData);
+  
+  
+        setStory(storyData)
+        setImage(imageData)
+        setReceivedAmount(ethValue)
+        setRequiredAmount(requiredAmountData)
+  
+        const imageUrl = `https://ipfs.infura.io/ipfs/${imageData}`
+        console.log(imageUrl, 'imageurl')
+        setImageString(imageUrl)
+  
+        if (allCampaigns) {
+        (allCampaigns.map((e) => {
+        if(e.address == newAddress) {
+        setTitle(e.title)
+        setOwner(e.owner)
+        // setTimeStamp(e.timeStamp)
+        setTimeStamp(new Date(e.timeStamp * 1000).toLocaleString(), 'date')
+        setAmount(e.amount)
+      }
      
-
-      // console.log('IPFS', story)
-      // console.log((await contract.requiredAmount()).toString(), "req amt")
-      // console.log((await contract.donate({value: ethers.utils.parseEther("1")})), 'donate')
-
-    //   const getAllCampaigns = contract.filters.campaignCreated(null, null, newAddress);
-    //   const AllCampaigns = await contract.queryFilter(getAllCampaigns);
-    //   const AllData = AllCampaigns.map((e) => {
-    //   return {
-    //     title: e.args.title,
-    //     image: e.args.imgURI,
-    //     owner: e.args.owner,
-    //     timeStamp: parseInt(e.args.timestamp),
-    //     amount: ethers.utils.formatEther(e.args.requiredAmount),
-    //     address: e.args.campaignAddress
-    //   }
-    //   })  
-    //   setCampaignsData(AllData)
-    //   console.log('dashboard', campaignsData)
+    }))
+  }
+  const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
+        console.log(contract, "contract")
+        console.log(await contract.story(), "story")
+       const storyIPFS = (fetch(storyUrlString).
+        then(res => res.text())
+        .then(data => setStory(data)))
+  
+  
+       
+  
+        // console.log('IPFS', story)
+        // console.log((await contract.requiredAmount()).toString(), "req amt")
+        // console.log((await contract.donate({value: ethers.utils.parseEther("1")})), 'donate')
+  
+      //   const getAllCampaigns = contract.filters.campaignCreated(null, null, newAddress);
+      //   const AllCampaigns = await contract.queryFilter(getAllCampaigns);
+      //   const AllData = AllCampaigns.map((e) => {
+      //   return {
+      //     title: e.args.title,
+      //     image: e.args.imgURI,
+      //     owner: e.args.owner,
+      //     timeStamp: parseInt(e.args.timestamp),
+      //     amount: ethers.utils.formatEther(e.args.requiredAmount),
+      //     address: e.args.campaignAddress
+      //   }
+      //   })  
+      //   setCampaignsData(AllData)
+      //   console.log('dashboard', campaignsData)
+      }
+      Request();
+     
+    } catch (err) {
+      console.log(err)
     }
-    Request();
-    }
+  }
  
 , [newSigner])
     return (
         <>
-       {newSigner !== undefined && <>
+       {newSigner !== undefined ? <>
         <div className="campaign-container">
            <div className="campaign-title">
              <div className="card">
@@ -214,7 +230,7 @@ const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
 
 
          </div>
-       </>}
+       </>: <><p>No signer found</p></>}
         </>
     )
 }
