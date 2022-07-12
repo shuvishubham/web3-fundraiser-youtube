@@ -11,7 +11,7 @@ const HeaderNav = () => {
       <Link passHref href={'/'}><HeaderNavLinks active={Router.pathname == "/" ? true : false}>
         Campaigns
       </HeaderNavLinks></Link>
-      <Link passHref href={'/Createcampaign'}><HeaderNavLinks active={Router.pathname == "/createcampaign" ? true : false} >
+      <Link passHref href={'/createcampaign'}><HeaderNavLinks active={Router.pathname == "/createcampaign" ? true : false} >
         Create Campaign
       </HeaderNavLinks></Link>
       <Link passHref href={'/dashboard'}><HeaderNavLinks active={Router.pathname == "/dashboard" ? true : false} >
