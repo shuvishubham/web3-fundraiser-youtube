@@ -20,7 +20,7 @@ const Campaign = () => {
   const [requiredAmount, setRequiredAmount] = useState()
   const [receivedAmount, setReceivedAmount] = useState()
   const [donationAmount, setDonationAmount] = useState()
-  const [imageString, setImageString] = useState('https://ipfs.infura.io/ipfs/QmdikPXpXRZkrhMghXoDjy9cTnj9QNyTUm3fvpLCKKPAVu')
+  const [imageString, setImageString] = useState('https:ipfs.infura.io/ipfs/QmdikPXpXRZkrhMghXoDjy9cTnj9QNyTUm3fvpLCKKPAVu')
   const [donation, setDonation] = useState()
 
 
@@ -46,7 +46,7 @@ const Campaign = () => {
  }
 
  const onWithdrawHandler = async () => {
- console.log(await contract.withdraw(), withdraw)
+ await contract.withdraw()
  }
  
   useEffect(() => {
@@ -115,93 +115,97 @@ const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
 , [])
     return (
         <>
-        <div className="campaign-container">
+         <div className="campaign-container">
+           <div className="campaign-title">
+             <div className="card">
+               {/* <div className="campaign-key">
+                  Title
+               </div> */}
+               <div className="campaign-value" style={{marginBottom: '20px'}}>
+                  {title}
+               </div>
+            </div>
+          </div>
           <div className="campaign-title">
-            <div className="card">
-              <div className="campaign-key">
-                 Title
-              </div>
-              <div className="campaign-value">
-                 {title}
-              </div>
-           </div>
-         </div>
-         <div className="campaign-title">
-            <div className="card">
-              <div className="campaign-key">
-                 Description
-              </div>
-              <div className="campaign-value">
-                 {story}
-              </div>
-           </div>
-         </div>
+             <div className="card">
+               {/* <div className="campaign-key">
+                 
+               </div> */}
+               <div className="campaign-value" style={{fontSize: '15px', marginBottom: '60px'}}>
+                 <i> {story}</i>
+               </div>
+            </div>
+          </div>
 
-         <div className="campaign-title">
-            <div className="card">
-              {/* <div className="campaign-key">
-                 Description
-              </div> */}
-              <div className="campaign-value">
-              <Image
-                src={imageString}
-                alt="crowdfunding dapp"
-                layout="fill"
-                className="campaign-image"
-          />
-              </div>
-           </div>
-         </div>
+          {/* <div className="campaign-title">
+             <div className="card"> */}
+               {/* <div className="campaign-key">
+                  Description
+               </div> */}
+               {/* <div className="campaign-value">
+               <Image
+                 src={imageString}
+                 alt="crowdfunding dapp"
+                 layout="fill"
+                 className="campaign-image"
+           />
+               </div>
+            </div>
+          </div> */}
 
-         <div className="campaign-title">
-            <div className="card">
-              <div className="campaign-key">
-                 Created on
-              </div>
-              <div className="campaign-value">
-                 {timeStamp}
-              </div>
+           <div className="campaign-title">
+              <div className="card">
+                {/* <div className="campaign-key">
+                 
+                </div> */}
+                <div className="campaign-value" style={{marginBottom: '40px'}}>
+                Created on: <span style={{marginLeft: '10px'}}>{timeStamp}</span>
+                </div>
+             </div>
            </div>
-         </div>
 
-         <div className="campaign-title">
-            <div className="card">
-              <div className="campaign-key">
-                 Required Amount 
-              </div>
-              <div className="campaign-value">
-                 {amount} BB ETH
-              </div>
+           <div style={{display: 'flex', justifyContent: 'space-around'}}>
+           <div className="campaign-title">
+              <div className="card">
+                <div className="campaign-key">
+                <span style={{marginRight: '10px'}}>Required Fund</span>
+                </div>
+                <div className="campaign-value">
+                   {amount} BB ETH
+                </div>
+             </div>
            </div>
-         </div>
 
-         <div className="campaign-title">
-            <div className="card">
-              <div className="campaign-key">
-                 Received Amount 
-              </div>
-              <div className="campaign-value">
-                 {receivedAmount} BB ETH
-              </div>
+           <div className="campaign-title">
+              <div className="card">
+                <div className="campaign-key">
+                <span style={{marginRight: '10px'}}> Received Fund </span>
+                </div>
+                <div className="campaign-value">
+                  {receivedAmount} BB ETH
+                </div>
+             </div>
            </div>
-         </div>
 
+           </div>
         
 
-         <form action="" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="donatevalue">Donate</label>
-            <input type="text" name="donation" id="donation" value={donation} onChange={handleInput} />
+          <form action="" onSubmit={handleSubmit}>
+           <div style={{marginTop: '100px'}}>
+            
+             <input type="text" name="donation" placeholder="Enter donation amount" style={{padding: '10px 20px', fontSize: '15px', border: 'none', backgroundColor: '#e7e7e7'}} id="donation" value={donation} onChange={handleInput} />
 
-            <button type="submit">Donate</button>
-          </div>
-         </form>
+             <button type="submit" style={{padding: '11px', backgroundColor: '#08AEEA', border: 'none'}}>Donate</button>
+           </div>
+          </form>
+
+          <p style={{marginTop: '30px'}}>OR</p>
 
 
-         <button onClick={onWithdrawHandler}>Withdraw</button>
+          <button style={{padding: '11px 20px', backgroundColor: '#08AEEA', border: 'none', marginTop: '30px', borderRadius: '8px', fontSize: '20px'}} onClick={onWithdrawHandler}>Withdraw</button>
 
 
-        </div>
+         </div>
         </>
     )
 }

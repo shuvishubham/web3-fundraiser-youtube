@@ -5,6 +5,10 @@
 .campaign-container {
     font-family: "Poppins";
     margin: 50px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center !important;
+    text-align: center;
 }
 
 .campaign-title {
@@ -22,6 +26,10 @@
     display: flex;
    
 }
+.campaign-key {
+    align-items: center;
+}
 .campaign-value {
-    margin: 0 20px;
+    margin: auto;
+    align-items: center;
 }
