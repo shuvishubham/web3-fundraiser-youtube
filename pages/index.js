@@ -15,7 +15,7 @@ import AdminContext from '../context/adminContext';
 
 export default function Index({CampaignData, HealthData, EducationData,AnimalData}) {
 
-  const { newSigner, setNewSigner, newAddress, setNewAddress, allCampaigns, setAllCampaigns, connectAccount, setConnectAccount  } = useContext(AdminContext)
+  const { newSigner, setNewSigner, newAddress, setNewAddress, allCampaigns, setAllCampaigns, connectAccount, setConnectAccount,  fetchChainId, setFetchChainId  } = useContext(AdminContext)
   const [filter, setFilter] = useState();
   const [campaign, setCampaign] = useState(false)
  
@@ -70,6 +70,7 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
         const walletconnect = true
         setConnectAccount(()=>walletconnect)
         setChainId(chainId);
+        setFetchChainId(()=>chainId)
        
         console.log(chainId)
        } catch (err) {
@@ -79,16 +80,16 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
     console.log(connectAccount, 'wallet')
 
     for (let [key, value] of Object.entries(CAMPAIGN_FACTORY_DETAILS)) {
-      if (getChainId === null && console.log('connect to metamamsk'));
-      if(getChainId != null){
-        if (key == getChainId.chainId) {
+      if (fetchChainId === null && console.log('connect to metamamsk'));
+      if(fetchChainId != null){
+        if (key == fetchChainId.chainId) {
           console.log("connected to build bear");
-          networkId = getChainId.chainId;
+          networkId = fetchChainId.chainId;
         }
-        else if (key != getChainId.chainId) {
-        // console.log(getChainId.name)
-        networkName = getChainId.name;
-        networkId = getChainId.chainId;
+        else if (key != fetchChainId.chainId) {
+        // console.log(fetchChainId.name)
+        networkName = fetchChainId.name;
+        networkId = fetchChainId.chainId;
         }
       }
     }
@@ -103,7 +104,7 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
         ethereum.on('chainChanged', (_chainId) => window.location.reload());
         getAllData()
        
-    }, [])
+    }, [connectAccount])
 
     if (filter !== undefined) {
       setAllCampaigns(()=>filter)

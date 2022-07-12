@@ -33,7 +33,7 @@ const [addr, setAddr] = useState(false)
             const camaignFactorycontract = new ethers.Contract(
                 CAMPAIGN_FACTORY_DETAILS.address,
                 CampaignFactory.abi,
-                props.signer
+                newSigner
               );
 
              

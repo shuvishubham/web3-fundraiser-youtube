@@ -8,9 +8,10 @@ export const SignerProvider = (props) => {
   const [newAddress, setNewAddress] = useState('');
   const [allCampaigns, setAllCampaigns] = useState([]);
   const [connectAccount, setConnectAccount] = useState(false)
+  const [fetchChainId, setFetchChainId] = useState(null)
 
   return (
-    <AdminContext.Provider value={{ newSigner, setNewSigner , newAddress, setNewAddress, allCampaigns, setAllCampaigns, connectAccount, setConnectAccount }}>
+    <AdminContext.Provider value={{ newSigner, setNewSigner , newAddress, setNewAddress, allCampaigns, setAllCampaigns, connectAccount, setConnectAccount, fetchChainId, setFetchChainId }}>
       {props.children}
     </AdminContext.Provider>
   );
