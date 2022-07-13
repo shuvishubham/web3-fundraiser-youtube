@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import FormLeftWrapper from './Components/FormLeftWrapper'
 import FormRightWrapper from './Components/FormRightWrapper'
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import {TailSpin} from 'react-loader-spinner';
 import {ethers} from 'ethers';
 import {toast} from 'react-toastify';
@@ -9,6 +9,8 @@ import CampaignFactory from '../../artifacts/contracts/CampaignFactory.sol/Campa
 import CrowdfundImg from '../../assets/crowdfund-image.jpg'
 import { CAMPAIGN_FACTORY_DETAILS } from '../../constants/constants';
 import Link from 'next/link';
+import AdminContext from '../../context/adminContext';
+
 const FormState = createContext();
 
 const Form = () => {
@@ -18,6 +20,9 @@ const Form = () => {
         requiredAmount: "",
         category: "education",
     });
+
+  const { newSigner, setNewSigner, newAddress, setNewAddress, connectAccount, setConnectAccount, fetchChainId, setFetchChainId } = useContext(AdminContext)
+
 
     const [loading, setLoading] = useState(false);
     const [address, setAddress] = useState("");
@@ -86,7 +91,7 @@ const Form = () => {
 
   return (
       <FormState.Provider value={{form, setForm, image, setImage, ImageHandler, FormHandler, setImageUrl, setStoryUrl, startCampaign, setUploaded}} >
-    <FormWrapper>
+        {(connectAccount && fetchChainId.chainId == 8337) ?  <FormWrapper>
         <FormMain>
             {loading == true ?
                 address == "" ?
@@ -107,7 +112,7 @@ const Form = () => {
                     </FormInputsWrapper>               
             }
         </FormMain>
-    </FormWrapper>
+    </FormWrapper>: <p style={{fontFamily: 'Poppins', margin: 'auto', textAlign: 'center', fontSize: '18px', paddingTop: '60px'}}>Please make sure that you are connected to the wallet</p>}
     </FormState.Provider>
   )
 }
