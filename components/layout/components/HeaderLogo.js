@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 const HeaderLogo = () => {
   return (
-    <Logo><img height={80} width={120} style={{ marginTop:"30px"}} src='https://i.im.ge/2022/07/06/uytr6X.md.png'></img></Logo>
-    
+    <Logo><div style={{marginRight: '160px'}}></div></Logo>
   )
 }
 

@@ -17,9 +17,10 @@ module.exports = {
   networks: {
     hardhat: {},
     buildbear: {
-      url: "https://backend.buildbear.io/node/adoring-antonelli-2ca027",
-      accounts: [privateKey]
+      url: "https://backend.buildbear.io/node/clever-williams-b356e4",
+      accounts:["331a3f5d6341c5d08e85b7c0535da803272d011c28b409a55ac9f0c065d329f3"],
     }
   }
 };
 
+// chain id 8301

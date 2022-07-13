@@ -25,6 +25,10 @@ const FormRightWrapper = () => {
         toast.warn(`Error Uploading Story`);
       }
     }
+    if(Handler.image === null) {
+      // console.log('nullldd')
+    }
+
 
 
       if(Handler.image !== null) {
@@ -141,7 +145,7 @@ const Image = styled.input`
   border-radius:8px ;
   outline:none;
   font-size:large;
-  width:100% ;
+ 
 
   &::-webkit-file-upload-button {
     padding: 15px ;
@@ -161,7 +165,7 @@ const Button = styled.button`
   color:white ;
   border-radius:30px;
   background-color: #0093E9;
-  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  background-image: #0093E9;
   border:none;
   margin-top:30px ;
   cursor: pointer;

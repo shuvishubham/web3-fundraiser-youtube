@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+
 const HeaderNav = () => {
   const Router = useRouter();
 
   return (
     <HeaderNavWrapper>
-      <Link passHref href={'/'}><HeaderNavLinks active={Router.pathname == "/" ? true : false} >
+      <Link passHref href={'/'}><HeaderNavLinks active={Router.pathname == "/" ? true : false}>
         Campaigns
       </HeaderNavLinks></Link>
       <Link passHref href={'/createcampaign'}><HeaderNavLinks active={Router.pathname == "/createcampaign" ? true : false} >
@@ -28,6 +29,7 @@ const HeaderNavWrapper = styled.div`
   letter-spacing: 3px;
   background-color: ${(props) => props.theme.bgDiv};
   padding: 6px;
+margin-left: 20px;
   height: 50%;
   border-radius: 10px;
   `

@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: Unlicensed
 
-pragma solidity >0.7.0 <=0.9.0;
-
-
-
-
+pragma solidity >0.8.0 <=0.9.0;
 
 contract Campaign {
     string public title;
@@ -13,8 +9,12 @@ contract Campaign {
     string public story;
     address payable public owner;
     uint public receivedAmount;
+    bool public acceptingDonation = true;
 
     event donated(address indexed donar, uint indexed amount, uint indexed timestamp);
+    event withdrawn(uint amount);
+    
+    error TooHighDonation(string message, uint256 donationRemaining);
 
     constructor(
         string memory campaignTitle, 
@@ -30,51 +30,37 @@ contract Campaign {
         owner = payable(campaignOwner);
     }
 
+
     function donate() public payable {
-        require(requiredAmount > receivedAmount, "required amount fullfilled");
-        owner.transfer(msg.value);
+        require(acceptingDonation);
+        require(msg.value > 0,"Msg.value = 0");
+        if (msg.value > requiredAmount - receivedAmount) revert TooHighDonation({
+                message: "Donation room left",
+                donationRemaining:requiredAmount - receivedAmount
+            });
         receivedAmount += msg.value;
+        if (receivedAmount >= requiredAmount) {
+            acceptingDonation = false;
+        }
         emit donated(msg.sender, msg.value, block.timestamp);
     }
-}
 
-contract CampaignFactory {
-    address[] public deployedCampaigns;
-
-    event campaignCreated(
-        string title,
-        uint requiredAmount,
-        address indexed owner,
-        address campaignAddress,
-        string imgURI,
-        uint indexed timestamp,
-        string indexed category
-    );
-
-    function createCampaign(
-        string memory campaignTitle, 
-        uint requiredCampaignAmount, 
-        string memory imgURI, 
-        string memory category,
-        string memory storyURI) public
-    {
-
-        Campaign newCampaign = new Campaign(
-            campaignTitle, requiredCampaignAmount, imgURI, storyURI, msg.sender);
-        
-
-        deployedCampaigns.push(address(newCampaign));
-
-        emit campaignCreated(
-            campaignTitle, 
-            requiredCampaignAmount, 
-            msg.sender, 
-            address(newCampaign),
-            imgURI,
-            block.timestamp,
-            category
-        );
-
+    function withdraw() public {
+        require(!acceptingDonation, "Campaign still not over");
+        require(msg.sender == owner, "Only the owner of the campaign can withdraw");
+        owner.transfer(receivedAmount);
+        emit withdrawn(receivedAmount);
     }
+
+    fallback() external payable {
+        donate();
+    }
+
+    receive() external payable {
+        donate();
+    }
+
 }
+
+
 

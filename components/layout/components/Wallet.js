@@ -1,55 +1,26 @@
 import styled from "styled-components";
 import { ethers } from "ethers";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AdminContext from "../../../context/adminContext";
 
-
-const networks = {
-  buildbear: {
-    chainId: `0x${Number(8308).toString(16)}`,
-    chainName: "BuildBear Adoring Antonelli 2ca027",
-    nativeCurrency: {
-      name: "BB ETH",
-      symbol: "BB ETH",
-      decimals: 18,
-    },
-    rpcUrls: ["https://backend.buildbear.io/node/"],
-    blockExplorerUrls: ["https://explorer.buildbear.io/"],
-  },
-};
 
 
 const Wallet = () => {
-  const [address, setAddress] = useState("");
-  const [balance, setBalance] = useState("");
-
-
-  const connectWallet = async () => {
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    if (provider.network !== "matic") {
-      await window.ethereum.request({
-        method: "wallet_addEthereumChain",
-        params: [
-          {
-            ...networks["buildbear"],
-          },
-        ],
-      });
-    } 
-      const account = provider.getSigner();
-      const Address = await account.getAddress();
-      setAddress(Address);
-      const Balance = ethers.utils.formatEther(await account.getBalance());
-      setBalance(Balance);
+ 
+  const { connectAccount, setConnectAccount, newSigner, setNewSigner  } = useContext(AdminContext);
     
-  };
+ return (
+  <>
+  {/* {connectAccount && <>
+    <ConnectWalletWrapper>
+  <Balance>{balance.slice(0,4)} BB ETH</Balance> }
+   <Address>{address.slice(0,6)}...{address.slice(39)}</Address>
+</ConnectWalletWrapper>
+  </>} */}
+  </>
+ )
 
-  return (
-    <ConnectWalletWrapper onClick={connectWallet}>
-      {balance == '' ? <Balance></Balance> : <Balance>{balance.slice(0,4)} BB ETH</Balance> }
-      {address == '' ? <Address>Connect Wallet</Address> : <Address>{address.slice(0,6)}...{address.slice(39)}</Address>}
-    </ConnectWalletWrapper>
-  );
+  
 };
 
 const ConnectWalletWrapper = styled.div`
@@ -64,7 +35,7 @@ const ConnectWalletWrapper = styled.div`
   margin-right: 15px;
   font-family: 'Poppins';
   font-weight: normal;
-  font-size: 15px;
+  font-size: 10px;
   cursor: pointer;
 `;
 

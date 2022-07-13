@@ -6,7 +6,6 @@ import HeaderRight from './components/HeaderRight'
 const Header = () => {
   return (
     <HeaderWrapper>
-      <HeaderLogo />
       <HeaderNav />
       <HeaderRight />
     </HeaderWrapper>
