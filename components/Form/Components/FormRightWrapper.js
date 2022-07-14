@@ -29,6 +29,7 @@ const FormRightWrapper = () => {
       // console.log('nullldd')
     }
 
+    console.log(Handler.form.duration, "Handler")
 
 
       if(Handler.image !== null) {

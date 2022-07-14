@@ -79,6 +79,8 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
     }
     // console.log(connectAccount, 'wallet')
 
+
+    console.log("campaigns", filter)
     for (let [key, value] of Object.entries(CAMPAIGN_FACTORY_DETAILS)) {
       if (fetchChainId === null && console.log('connect to metamamsk'));
       if(fetchChainId != null){
