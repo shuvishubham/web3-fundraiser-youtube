@@ -29,9 +29,6 @@ const FormRightWrapper = () => {
       // console.log('nullldd')
     }
 
-    console.log(Handler.form.duration, "Handler")
-
-
       if(Handler.image !== null) {
           try {
               const added = await client.add(Handler.image);
@@ -70,6 +67,10 @@ const FormRightWrapper = () => {
         <label>Select Image</label>
         <Image alt="dapp" onChange={Handler.ImageHandler} type={'file'} accept='image/*'>
         </Image>
+      </FormInput>
+      <FormInput>
+            <label>Choose Date</label>
+            <Input onChange={Handler.FormHandler} value={Handler.form.duration} name="duration" type={'date'} placeholder='Required Date'></Input>
       </FormInput>
       {uploadLoading == true ? <Button><TailSpin color='#fff' height={20} /></Button> :
         uploaded == false ? 

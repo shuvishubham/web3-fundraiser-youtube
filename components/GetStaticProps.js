@@ -36,9 +36,6 @@ const [duration, setDuration] = useState()
                 CampaignFactory.abi,
                 newSigner
               );
-
-             
-             
            
               const getAllCampaigns = camaignFactorycontract.filters.campaignCreated();
               const AllCampaigns = await camaignFactorycontract.queryFilter(getAllCampaigns);
@@ -51,7 +48,7 @@ const [duration, setDuration] = useState()
                 setTimeStamp(e.args.timeStamp)
                 setAmount(e.args.amount)
                 setAddr(e.args.address)
-                setDuration('14-02-2001')
+                setDuration(e.args.duration)
                }
                     return {
                       title: e.args.title,
@@ -60,17 +57,13 @@ const [duration, setDuration] = useState()
                       timeStamp: parseInt(e.args.timestamp),
                       amount: ethers.utils.formatEther(e.args.requiredAmount),
                       address: e.args.campaignAddress,
-                      duration:'14-02-2001'
+                      duration:e.args.duration
 
                     }
                   });
               setCampaignData(AllData)
               setFetchCampaign(AllData)
-              setHaveCampaign(true)
-
-
-              
-    
+              setHaveCampaign(true)   
      
     }
     campaignProps()

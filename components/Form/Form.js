@@ -19,7 +19,7 @@ const Form = () => {
         story: "",
         requiredAmount: "",
         category: "education",
-        duration: "12-02-1002"
+        duration: ""
     });
 
   const { newSigner, setNewSigner, newAddress, setNewAddress, connectAccount, setConnectAccount, fetchChainId, setFetchChainId } = useContext(AdminContext)
@@ -28,7 +28,6 @@ const Form = () => {
     const [loading, setLoading] = useState(false);
     const [address, setAddress] = useState("");
     const [uploaded, setUploaded] = useState(false);
-
     const [storyUrl, setStoryUrl] = useState();
     const [imageUrl, setImageUrl] = useState();
 
@@ -38,6 +37,8 @@ const Form = () => {
             [e.target.name]: e.target.value
         })
     }
+
+   
 
     const [image, setImage] = useState(null);
 
@@ -58,6 +59,8 @@ const Form = () => {
           toast.warn("Story Field Is Empty");
         } else if(form.requiredAmount === "") {
           toast.warn("Required Amount Field Is Empty");
+        } else if(form.duration === "") {
+          toast.warn("Required Date Field Is Empty");
         } 
         else {        
           setLoading(true);  

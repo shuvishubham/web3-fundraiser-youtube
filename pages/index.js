@@ -79,7 +79,6 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
     }
     // console.log(connectAccount, 'wallet')
 
-
     console.log("campaigns", filter)
     for (let [key, value] of Object.entries(CAMPAIGN_FACTORY_DETAILS)) {
       if (fetchChainId === null && console.log('connect to metamamsk'));
@@ -147,8 +146,10 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
             <Text >Amount</Text> 
             <Text>{e.amount} BB ETH</Text>
           </CardData>
-         
-         
+          <CardData>
+            <Text >Duration</Text> 
+            <Text>{e.amount}</Text>
+          </CardData>
          <Link href="/campaign">
          <Button onClick={() => stateChanger(e.address)}>
            Go to Campaign
