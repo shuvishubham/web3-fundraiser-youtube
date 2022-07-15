@@ -13,7 +13,8 @@ contract CampaignFactory {
         address campaignAddress,
         string imgURI,
         uint indexed timestamp,
-        string indexed category
+        string indexed category,
+        uint deadline
     );
 
     function createCampaign(
@@ -21,14 +22,16 @@ contract CampaignFactory {
         uint requiredCampaignAmount, 
         string memory imgURI, 
         string memory category,
-        string memory storyURI) public returns (Campaign newCampaign)
+        string memory storyURI,
+        uint campaignDeadline) public returns (Campaign newCampaign)
     {
         newCampaign = new Campaign(
             campaignTitle, 
             requiredCampaignAmount, 
             imgURI, 
             storyURI, 
-            msg.sender
+            msg.sender,
+            campaignDeadline
         );
         deployedCampaigns.push(address(newCampaign));
         emit campaignCreated(
@@ -38,7 +41,8 @@ contract CampaignFactory {
             address(newCampaign),
             imgURI,
             block.timestamp,
-            category
+            category,
+            campaignDeadline
         );
     }
 }

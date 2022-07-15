@@ -19,7 +19,7 @@ const Form = () => {
         story: "",
         requiredAmount: "",
         category: "education",
-        duration: ""
+        deadline: "1657873950"
     });
 
   const { newSigner, setNewSigner, newAddress, setNewAddress, connectAccount, setConnectAccount, fetchChainId, setFetchChainId } = useContext(AdminContext)
@@ -28,6 +28,7 @@ const Form = () => {
     const [loading, setLoading] = useState(false);
     const [address, setAddress] = useState("");
     const [uploaded, setUploaded] = useState(false);
+
     const [storyUrl, setStoryUrl] = useState();
     const [imageUrl, setImageUrl] = useState();
 
@@ -37,8 +38,6 @@ const Form = () => {
             [e.target.name]: e.target.value
         })
     }
-
-   
 
     const [image, setImage] = useState(null);
 
@@ -59,8 +58,6 @@ const Form = () => {
           toast.warn("Story Field Is Empty");
         } else if(form.requiredAmount === "") {
           toast.warn("Required Amount Field Is Empty");
-        } else if(form.duration === "") {
-          toast.warn("Required Date Field Is Empty");
         } 
         else {        
           setLoading(true);  
@@ -78,13 +75,15 @@ const Form = () => {
        }
             
           const CampaignAmount = ethers.utils.parseEther(form.requiredAmount);
+          const UnixDeadline = "";  // Add code for converting date to unix timestamp
     
           const campaignData = await contract.createCampaign(
             form.campaignTitle,
             CampaignAmount,
             imageUrl,
             form.category,
-            storyUrl
+            storyUrl,
+            form.deadline
           );
     // console.log(campaignData, 'data')
           await campaignData.wait();   

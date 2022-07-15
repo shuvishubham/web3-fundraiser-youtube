@@ -26,7 +26,7 @@ const [owner, setOwner] = useState(false)
 const [timeStamp, setTimeStamp] = useState(false)
 const [amount, setAmount] = useState(false)
 const [addr, setAddr] = useState(false)
-const [duration, setDuration] = useState()
+const [deadline, setDeadline] = useState()
  
  
     async function campaignProps () {
@@ -48,7 +48,7 @@ const [duration, setDuration] = useState()
                 setTimeStamp(e.args.timeStamp)
                 setAmount(e.args.amount)
                 setAddr(e.args.address)
-                setDuration(e.args.duration)
+                setDeadline(e.args.deadline)
                }
                     return {
                       title: e.args.title,
@@ -57,7 +57,7 @@ const [duration, setDuration] = useState()
                       timeStamp: parseInt(e.args.timestamp),
                       amount: ethers.utils.formatEther(e.args.requiredAmount),
                       address: e.args.campaignAddress,
-                      duration:e.args.duration
+                      deadline: '1657873950'
 
                     }
                   });
