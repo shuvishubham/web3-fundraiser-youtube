@@ -48,8 +48,9 @@ const [deadline, setDeadline] = useState()
                 setTimeStamp(e.args.timeStamp)
                 setAmount(e.args.amount)
                 setAddr(e.args.address)
-                setDeadline(e.args.deadline)
+                setDeadline((e.args.deadline).toString())
                }
+            const deadlineToString = (e.args.deadline).toString()
                     return {
                       title: e.args.title,
                       image: e.args.imgURI,
@@ -57,7 +58,7 @@ const [deadline, setDeadline] = useState()
                       timeStamp: parseInt(e.args.timestamp),
                       amount: ethers.utils.formatEther(e.args.requiredAmount),
                       address: e.args.campaignAddress,
-                      deadline: '1657873950'
+                      deadline: deadlineToString
 
                     }
                   });

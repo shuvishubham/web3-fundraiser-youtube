@@ -69,8 +69,8 @@ const FormRightWrapper = () => {
         </Image>
       </FormInput>
       <FormInput>
-            <label>Duration</label>
-            <Input onChange={Handler.FormHandler} value={Handler.form.deadline} name="deadline" placeholder='Required Date'></Input>
+            <label>Deadline</label>
+            <Input onChange={Handler.FormHandler} value={Handler.form.deadline} name="deadline" type={'date'} placeholder='Required Date'></Input>
       </FormInput>
       {uploadLoading == true ? <Button><TailSpin color='#fff' height={20} /></Button> :
         uploaded == false ? 

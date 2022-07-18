@@ -19,7 +19,7 @@ const Form = () => {
         story: "",
         requiredAmount: "",
         category: "education",
-        deadline: "1657873950"
+        deadline: ""
     });
 
   const { newSigner, setNewSigner, newAddress, setNewAddress, connectAccount, setConnectAccount, fetchChainId, setFetchChainId } = useContext(AdminContext)
@@ -75,7 +75,7 @@ const Form = () => {
        }
             
           const CampaignAmount = ethers.utils.parseEther(form.requiredAmount);
-          const UnixDeadline = "";  // Add code for converting date to unix timestamp
+          var UnixDeadline = moment.unix(value).format("MM/DD/YYYY"); // Here convert the date into unix timestamp (use moment library for that)
     
           const campaignData = await contract.createCampaign(
             form.campaignTitle,
