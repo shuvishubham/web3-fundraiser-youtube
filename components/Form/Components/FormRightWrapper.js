@@ -62,15 +62,15 @@ const FormRightWrapper = () => {
           </RowSecondInput>
         </FormRow>
       </FormInput>
+      <FormInput>
+            <label>Deadline</label>
+            <Input onChange={Handler.FormHandler} value={Handler.form.deadline} name="deadline" type={'date'} placeholder='Required Date'></Input>
+      </FormInput>
       {/* Image */}
       <FormInput>
         <label>Select Image</label>
         <Image alt="dapp" onChange={Handler.ImageHandler} type={'file'} accept='image/*'>
         </Image>
-      </FormInput>
-      <FormInput>
-            <label>Deadline</label>
-            <Input onChange={Handler.FormHandler} value={Handler.form.deadline} name="deadline" type={'date'} placeholder='Required Date'></Input>
       </FormInput>
       {uploadLoading == true ? <Button><TailSpin color='#fff' height={20} /></Button> :
         uploaded == false ? 
@@ -92,6 +92,7 @@ const FormRight = styled.div`
 
 const FormInput = styled.div`
   display:flex ;
+ 
   flex-direction:column;
   font-family:'Poppins';
   margin-top:10px ;
@@ -109,10 +110,11 @@ const Input = styled.input`
   color:${(props) => props.theme.color} ;
   margin-top:4px;
   border:none ;
+ 
   border-radius:8px ;
   outline:none;
   font-size:large;
-  width:100% ;
+  width:94% ;
 ` 
 
 const RowFirstInput = styled.div`
