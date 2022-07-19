@@ -54,6 +54,8 @@ const createCampaign = () => {
 
   const contract = createCampaign()
 
+  
+
  const handleInput = (e) => {
   const donatevalue = e.target.value;
   setDonation(donatevalue)
@@ -73,6 +75,7 @@ const createCampaign = () => {
  }}
 
  }
+ 
 
 const DonationDisabled = () => {
   window.alert('Cannot donate to the Campaign')
