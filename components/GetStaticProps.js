@@ -51,7 +51,7 @@ const [deadline, setDeadline] = useState()
                 setDeadline((e.args.deadline).toString())
                }
             const deadlineToString = (e.args.deadline).toString()
-                    return {
+                    return {  
                       title: e.args.title,
                       image: e.args.imgURI,
                       owner: e.args.owner,

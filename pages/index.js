@@ -126,6 +126,8 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
       {filter === undefined && <p>No campaign is created yet! Create one with Build Bear!</p>}
 
       {filter !== undefined && filter.map((e) => {
+        const millisec = e.deadline * 1000
+        const deadlineDate = (new Date(millisec)).toLocaleString()
         return (
           <Card key={e.title}>
           <CardImg>
@@ -148,7 +150,7 @@ export default function Index({CampaignData, HealthData, EducationData,AnimalDat
           </CardData>
           <CardData>
             <Text >Duration</Text> 
-            <Text>{e.amount}</Text>
+            <Text>{deadlineDate}</Text>
           </CardData>
          <Link href="/campaign">
          <Button onClick={() => stateChanger(e.address)}>

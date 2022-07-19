@@ -63,7 +63,7 @@ contract Campaign is ReentrancyGuard {
     }
 
 
-    function refund () public payable {
+    function refund () public {
         require(block.timestamp > deadline && receivedAmount < requiredAmount);
         require(contributers[msg.sender] > 0,"Not eligible for refund");
         address payable user = payable(msg.sender);
