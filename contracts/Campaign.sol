@@ -58,10 +58,6 @@ contract Campaign is ReentrancyGuard {
 
     function withdraw() public {
         require(!acceptingDonation, "Campaign still not over");
-        require(
-            msg.sender == owner,
-            "Only the owner of the campaign can withdraw"
-        );
         owner.transfer(receivedAmount);
         emit withdrawn(receivedAmount);
     }
