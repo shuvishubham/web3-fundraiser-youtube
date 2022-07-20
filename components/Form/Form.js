@@ -138,7 +138,7 @@ const Form = () => {
                       }}
                     >
                     
-                      <a href="/">Go To Campaign</a>
+                     Go back to the Campaign Page
                     </div>
                   </Button>
                 </Address>
