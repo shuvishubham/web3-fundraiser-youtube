@@ -63,7 +63,7 @@ export default function Dashboard() {
   return (
  
    <>
-   {(connectAccount && fetchChainId.chainId == 8337) ?  <HomeWrapper>
+   {(connectAccount && fetchChainId.chainId == CAMPAIGN_FACTORY_DETAILS.chainId) ?  <HomeWrapper>
 
 {/* Cards Container */}
 <CardsWrapper>

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/hp/uv/crowdfund-dapp/contracts/Campaign.sol": {
-      "lastModificationDate": 1657862834041,
-      "contentHash": "1b932478a0634e250ee5459950aefc6c",
+      "lastModificationDate": 1658212545401,
+      "contentHash": "e7dcf7d0a7fb50eb8a094235f47a2935",
       "sourceName": "contracts/Campaign.sol",
       "solcConfig": {
         "version": "0.8.10",
@@ -108,44 +108,6 @@
       ],
       "artifacts": [
         "CampaignFactory"
-      ]
-    },
-    "/home/hp/uv/crowdfund-dapp/contracts/NFT.sol": {
-      "lastModificationDate": 1658123322403,
-      "contentHash": "a2df1fbabcd0b5388ea1c209eaeef444",
-      "sourceName": "contracts/NFT.sol",
-      "solcConfig": {
-        "version": "0.8.10",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/utils/Counters.sol",
-        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.1"
-      ],
-      "artifacts": [
-        "NFT"
       ]
     },
     "/home/hp/uv/crowdfund-dapp/node_modules/@openzeppelin/contracts/utils/Counters.sol": {

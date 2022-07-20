@@ -115,7 +115,7 @@ const Form = () => {
         setUploaded,
       }}
     >
-      {connectAccount && fetchChainId.chainId == 8337 ? (
+      {connectAccount && fetchChainId.chainId == CAMPAIGN_FACTORY_DETAILS.chainId ? (
         <FormWrapper>
           <FormMain>
             {loading == true ? (
@@ -130,18 +130,16 @@ const Form = () => {
                   </h3>
                   <h3 style={{ fontFamily: "Poppins" }}>{address}</h3>
                   <Button style={{ fontFamily: "Poppins" }}>
-                    <Link
-                    passHref
-                      href={'/'}
+                    <div
                       style={{
                         textDecoration: "none",
                         fontFamily: "Poppins",
                         color: "#000",
                       }}
                     >
-                      {" "}
-                      Go To Campaign
-                    </Link>
+                    
+                      <a href="/">Go To Campaign</a>
+                    </div>
                   </Button>
                 </Address>
               )

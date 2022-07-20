@@ -1,8 +1,0 @@
-{
-  "name": "Campaign Donor 🎉",
-  "description": "By UV Labs, This NFT represents the holder donated to Crowdfund DApp created by UV Labs. Join us👇 Twitter: https://twitter.com/uv_labs",
-  "image": "https://gateway.pinata.cloud/ipfs/Qmaa7AVKbH6nFAG17HpfoNaSVeMwCrEm7nh9z8Nsw6tvqu",
-  "attributes": [
-    { "trait_type": "Type", "value": "Donation" }
-  ]
-}
