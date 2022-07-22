@@ -17,7 +17,7 @@ module.exports = {
   networks: {
     hardhat: {},
     buildbear: {
-      url: "https://backend.buildbear.io/node/angry-goodall-693279",
+      url: "https://backend.buildbear.io/node/lucid-pascal-7532a7",
       accounts:["5975f1024d1d4db467fe7be8846a0045236440fd7726e0b42bf01cd817f1c61b"],
     }
   }
