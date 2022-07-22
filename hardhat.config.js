@@ -13,13 +13,14 @@ const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY
 
 module.exports = {
   solidity: "0.8.10",
-  defaultNetwork: "polygon",
+  defaultNetwork: "buildbear",
   networks: {
     hardhat: {},
-    polygon: {
-      url: process.env.NEXT_PUBLIC_RPC_URL,
-      accounts: [privateKey]
+    buildbear: {
+      url: "https://backend.buildbear.io/node/lucid-pascal-7532a7",
+      accounts:["5975f1024d1d4db467fe7be8846a0045236440fd7726e0b42bf01cd817f1c61b"],
     }
   }
 };
 
+// chain id 8301

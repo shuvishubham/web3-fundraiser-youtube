@@ -4,14 +4,15 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import {App} from '../Layout';
 import { useContext } from 'react';
 import Wallet from './Wallet';
+import Metamask from './Metamask';
 
 
 const HeaderRight = () => {
   const ThemeToggler = useContext(App);
 
   return (
-    <HeaderRightWrapper>
-      <Wallet />
+    <HeaderRightWrapper> 
+    <Wallet />
       <ThemeToggle onClick={ThemeToggler.changeTheme}>
       {ThemeToggler.theme === 'light' ? <DarkModeIcon /> : <Brightness7Icon />}
       </ThemeToggle>
@@ -24,6 +25,8 @@ const HeaderRightWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 16px;
+  letter-spacing:3px;
+  font-style:normal;
   height: 50%;
 `
 const ThemeToggle = styled.div`

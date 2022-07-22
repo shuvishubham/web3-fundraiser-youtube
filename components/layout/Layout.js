@@ -4,6 +4,7 @@ import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import { useState, createContext } from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { base58 } from "ethers/lib/utils";
 
 const App = createContext();
 
@@ -13,7 +14,6 @@ const Layout = ({ children }) => {
   const changeTheme = () => {
     setTheme(theme == "light" ? "dark" : "light");
   };
-
   return (
     <App.Provider value={{ changeTheme, theme }}>
       <ThemeProvider theme={themes[theme]}>

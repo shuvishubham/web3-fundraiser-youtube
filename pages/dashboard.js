@@ -5,13 +5,24 @@ import PaidIcon from '@mui/icons-material/Paid';
 import EventIcon from '@mui/icons-material/Event';
 import Image from 'next/image';
 import { ethers } from 'ethers';
-import CampaignFactory from '../artifacts/contracts/Campaign.sol/CampaignFactory.json'
-import { useEffect, useState } from 'react';
+import CampaignFactory from '../artifacts/contracts/CampaignFactory.sol/CampaignFactory.json'
+import { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
+import { CAMPAIGN_FACTORY_DETAILS } from '../constants/constants';
+import AdminContext from '../context/adminContext';
 
 export default function Dashboard() {
   const [campaignsData, setCampaignsData] = useState([]);
 
+
+  const { newSigner, setNewSigner, newAddress, setNewAddress, connectAccount, setConnectAccount, fetchChainId, setFetchChainId  } = useContext(AdminContext)
+  
+ 
+  // console.log(newSigner, "signer")
+
+  const stateChanger = (fetchAddress) => {
+    setNewAddress(() => fetchAddress)
+  }
   useEffect(() => {
     const Request = async () => {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -19,15 +30,18 @@ export default function Dashboard() {
       const signer = Web3provider.getSigner();
       const Address = await signer.getAddress();
 
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.NEXT_PUBLIC_RPC_URL
-      );
+    //   const provider = new ethers.providers.JsonRpcProvider(
+    //     process.env.NEXT_PUBLIC_RPC_URL
+    //   );
   
       const contract = new ethers.Contract(
-        process.env.NEXT_PUBLIC_ADDRESS,
+        CAMPAIGN_FACTORY_DETAILS.address,
         CampaignFactory.abi,
-        provider
+        signer
       );
+      
+    
+     
   
       const getAllCampaigns = contract.filters.campaignCreated(null, null, Address);
       const AllCampaigns = await contract.queryFilter(getAllCampaigns);
@@ -47,47 +61,50 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <HomeWrapper>
+ 
+   <>
+   {(connectAccount && fetchChainId.chainId == CAMPAIGN_FACTORY_DETAILS.chainId) ?  <HomeWrapper>
 
-      {/* Cards Container */}
-      <CardsWrapper>
+{/* Cards Container */}
+<CardsWrapper>
 
-      {/* Card */}
-      {campaignsData.map((e) => {
-        return (
-          <Card key={e.title}>
-          <CardImg>
-            <Image 
-              alt="crowdfunding dapp"
-              layout='fill' 
-              src={"https://ipfs.infura.io/ipfs/" + e.image} 
-            />
-          </CardImg>
-          <Title>
-            {e.title}
-          </Title>
-          <CardData>
-            <Text>Owner<AccountBoxIcon /></Text> 
-            <Text>{e.owner.slice(0,6)}...{e.owner.slice(39)}</Text>
-          </CardData>
-          <CardData>
-            <Text>Amount<PaidIcon /></Text> 
-            <Text>{e.amount} Matic</Text>
-          </CardData>
-          <CardData>
-            <Text><EventIcon /></Text>
-            <Text>{new Date(e.timeStamp * 1000).toLocaleString()}</Text>
-          </CardData>
-          <Link passHref href={'/' + e.address}><Button>
-            Go to Campaign
-          </Button></Link>
-        </Card>
-        )
-      })}
-        {/* Card */}
+{/* Card */}
 
-      </CardsWrapper>
-    </HomeWrapper>
+{campaignsData.map((e) => {
+  return (
+    <Card key={e.title}>
+    <CardImg>
+      <Image 
+        alt="crowdfunding dapp"
+        layout='fill' 
+        src={"https://ipfs.infura.io/ipfs/" + e.image} 
+      />
+    </CardImg>
+    <Title>
+      {e.title}
+    </Title>
+    <CardData>
+      <Text>Owner</Text> 
+      <Text>{e.owner.slice(0,6)}...{e.owner.slice(39)}</Text>
+    </CardData>
+    <CardData>
+      <Text>Amount</Text> 
+      <Text>{e.amount} BB ETH</Text>
+    </CardData>
+   
+    <Link passHref href={'/campaign'}><Button onClick={()=> stateChanger(e.address)}>
+      Go to Campaign
+    </Button></Link>
+  </Card>
+  )
+})}
+
+  {/* Card */}
+
+</CardsWrapper>
+</HomeWrapper>: <p style={{fontFamily: 'Poppins', margin: 'auto', textAlign: 'center', fontSize: '18px', paddingTop: '60px'}}>Please make sure that you are connected to the wallet</p>}
+   </>
+
   )
 }
 
@@ -95,20 +112,30 @@ export default function Dashboard() {
 
 const HomeWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  overflow-X: hidden;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-flow: nowrap
   align-items: center;
-  width: 100%;
+ 
 `
 const CardsWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 80%;
-  margin-top: 25px;
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+margin:30px;
+width: 100%;
+margin-left: 100px;
+margin-right: 100px;
+margin-top: 50px;
+border-radius: 16px;
 `
 const Card = styled.div`
-  width: 30%;
-  margin-top: 20px;
+  width: 25%;
+  max-width: 400px;
+  margin-top: 60px;
+  border: 10px solid #f0f0f0;
+  border-radius: '25px';
   background-color: ${(props) => props.theme.bgDiv};
 
   &:hover{
@@ -122,47 +149,48 @@ const Card = styled.div`
 `
 const CardImg = styled.div`
   position: relative;
-  height: 120px;
+  border-radius: "30px";
+  height: 180px;
   width: 100%;
 `
 const Title = styled.h2`
   font-family: 'Roboto';
   font-size: 18px;
+  letter-spacing:2px;
   margin: 2px 0px;
   background-color: ${(props) => props.theme.bgSubDiv};
   padding: 5px;
   cursor: pointer;
-  font-weight: normal;
+  text-align:center;
+  font-weight: bold;
 `
 const CardData = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 2px 0px;
-  background-color: ${(props) => props.theme.bgSubDiv};
+  margin: 2px 10px;
   padding: 5px;
   cursor: pointer;
   `
 const Text = styled.p`
-  display: flex;
+ display: flex;
+  font-family: 'Poppins';
   align-items: center;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto';
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 15px;
+  height: 60px;
+  background-color: ${(props) => props.active ? props.theme.bgSubDiv : props.theme.bgDiv };
+
 `
 const Button = styled.button`
   padding: 8px;
   text-align: center;
   width: 100%;
-  background-color:#00b712 ;
-  background-image:
-      linear-gradient(180deg, #00b712 0%, #5aff15 80%); 
   border: none;
   cursor: pointer;
-  font-family: 'Roboto';
-  text-transform: uppercase;
-  color: #fff;
-  font-size: 14px;
+  letter-spacing:2px;
+  font-family: 'Poppins';
+  font-size: 18px;
+  background-color: ${(props) => props.theme.bgSubDiv};
   font-weight: bold;
 `

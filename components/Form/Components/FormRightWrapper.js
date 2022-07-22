@@ -25,7 +25,9 @@ const FormRightWrapper = () => {
         toast.warn(`Error Uploading Story`);
       }
     }
-
+    if(Handler.image === null) {
+      // console.log('nullldd')
+    }
 
       if(Handler.image !== null) {
           try {
@@ -60,6 +62,10 @@ const FormRightWrapper = () => {
           </RowSecondInput>
         </FormRow>
       </FormInput>
+      <FormInput>
+            <label>Deadline</label>
+            <Input onChange={Handler.FormHandler} value={Handler.form.deadline} name="deadline" type={'date'} placeholder='Required Date'></Input>
+      </FormInput>
       {/* Image */}
       <FormInput>
         <label>Select Image</label>
@@ -86,8 +92,9 @@ const FormRight = styled.div`
 
 const FormInput = styled.div`
   display:flex ;
+ 
   flex-direction:column;
-  font-family:'poppins';
+  font-family:'Poppins';
   margin-top:10px ;
 `
 
@@ -103,10 +110,11 @@ const Input = styled.input`
   color:${(props) => props.theme.color} ;
   margin-top:4px;
   border:none ;
+ 
   border-radius:8px ;
   outline:none;
   font-size:large;
-  width:100% ;
+  width:94% ;
 ` 
 
 const RowFirstInput = styled.div`
@@ -141,7 +149,7 @@ const Image = styled.input`
   border-radius:8px ;
   outline:none;
   font-size:large;
-  width:100% ;
+ 
 
   &::-webkit-file-upload-button {
     padding: 15px ;
@@ -159,9 +167,9 @@ const Button = styled.button`
   width:100% ;
   padding:15px ;
   color:white ;
-  background-color:#00b712 ;
-  background-image:
-      linear-gradient(180deg, #00b712 0%, #5aff15 80%) ;
+  border-radius:30px;
+  background-color: #0093E9;
+  background-image: #0093E9;
   border:none;
   margin-top:30px ;
   cursor: pointer;

@@ -1,2 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Praise&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Arsenal&family=Thasadith:ital@1&display=swap");
+
+.campaign-container {
+    font-family: "Poppins";
+    margin: 50px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center !important;
+    text-align: center;
+    border: 2px solid #988f8f;
+    padding: 33px;
+}
+
+.campaign-title {
+    font-size: 25px;
+}
+
+.campaign-image {
+  min-width: 200px !important;
+  min-height: 200px !important;
+  
+
+}
+
+.card {
+    display: flex;
+   
+}
+.campaign-key {
+    align-items: center;
+}
+.campaign-value {
+    margin: auto;
+    align-items: center;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}

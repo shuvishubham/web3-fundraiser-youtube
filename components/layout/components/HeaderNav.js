@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+
 const HeaderNav = () => {
   const Router = useRouter();
 
   return (
     <HeaderNavWrapper>
-      <Link passHref href={'/'}><HeaderNavLinks active={Router.pathname == "/" ? true : false} >
+      <Link passHref href={'/'}><HeaderNavLinks active={Router.pathname == "/" ? true : false}>
         Campaigns
       </HeaderNavLinks></Link>
       <Link passHref href={'/createcampaign'}><HeaderNavLinks active={Router.pathname == "/createcampaign" ? true : false} >
@@ -24,8 +25,11 @@ const HeaderNavWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-style:'Poppins';
+  letter-spacing: 3px;
   background-color: ${(props) => props.theme.bgDiv};
   padding: 6px;
+margin-left: 20px;
   height: 50%;
   border-radius: 10px;
   `
@@ -36,7 +40,7 @@ const HeaderNavLinks = styled.div`
   justify-content: space-between;
   background-color: ${(props) => props.active ? props.theme.bgSubDiv : props.theme.bgDiv };
   height: 100%;
-  font-family: 'Roboto';
+  font-family: 'Poppins';
   margin: 5px;
   border-radius: 10px;
   padding: 0 5px 0 5px;

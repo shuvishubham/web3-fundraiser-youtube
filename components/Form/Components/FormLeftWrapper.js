@@ -19,7 +19,7 @@ const FormLeftWrapper = () => {
       </FormInput>
     </FormLeft>
   )
-}
+} 
 
 const FormLeft = styled.div`
   width:48%;
