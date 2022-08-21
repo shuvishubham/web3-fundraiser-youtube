@@ -5,7 +5,18 @@ import { toast } from 'react-toastify';
 import {TailSpin} from 'react-loader-spinner'
 import {create as IPFSHTTPClient} from 'ipfs-http-client';
 
-const client = IPFSHTTPClient("https://ipfs.infura.io:5001/api/v0");
+const projectId = '2DfVAn21Qsjaiyf6vPsOb1H0M8b'
+const projectSecret = '1850a3ce8d231c928e64c01e31b6553f'
+const auth = 'Basic ' + Buffer.from(projectId + ":" + projectSecret).toString('base64')
+
+const client = IPFSHTTPClient({
+  host:'ipfs.infura.io',
+  port:5001,
+  protocol: 'https',
+  headers: {
+    authorization: auth
+  }
+})
 
 const FormRightWrapper = () => {
   const Handler = useContext(FormState);
