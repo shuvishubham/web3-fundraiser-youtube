@@ -137,7 +137,8 @@ export async function getStaticProps() {
       HealthData,
       EducationData,
       AnimalData
-    }
+    },
+    revalidate: 10
   }
 }
 
